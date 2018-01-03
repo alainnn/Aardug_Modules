@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="web_custom_helpdesk_support_inherit">
+            <field name="name">helpdesk.support.custom.form</field>
+            <field name="model">helpdesk.support</field>
+            <field name="inherit_id" ref="website_helpdesk_support_ticket.helpdesk_support_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='request_date']" position="after">
+                    <!-- ToDo: Need to rework. -->
+                    <!-- <field name="last_stage_update" invisible="1"/> -->
+                </xpath>
+            </field>
+        </record>
+    
+        <record model="ir.ui.view" id="web_kanban_custom_helpdesk_support_kanban">
+            <field name="name">helpdesk.support.web_kanban_custom</field>
+            <field name="model">helpdesk.support</field>
+            <field name="inherit_id" ref="website_helpdesk_support_ticket.helpdesk_view_kanban"/>
+            <field name="arch" type="xml">
+                <field name="message_needaction_counter" position="after">
+                    <field name="request_date" />
+                    <field name="last_stage_update"/>
+                    <field name="sla_level_id"/> 
+                    <field name="close_date"/>
+                    <field name="assign_date"/>
+                    <field name="dead_line_date"/>
+                    <field name="message_last_post"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_helpdesk_custom_tree" model="ir.ui.view">
+            <field name="name">helpdesk.stage.custom.tree</field>
+            <field name="model">helpdesk.stage.custom</field>
+            <field name="arch" type="xml">
+                <tree editable="top" string="Kanban Custom">
+                    <field name="action_perform"/>
+                    <field name="sla_level_id" placeholder="Optional SLA Level"/>
+                    <field name="action_when" />
+                    <field name="action_time" />
+                    <field name="action_color" />
+                    <field name="priority"/>
+                    <field name="helpdesk_stage_id" readonly="1"/>
+                    <field name="send_mail"/>
+                    <field name="mail_action"/>
+                    <field name="template_id" attrs="{'required':[('send_mail','=',True)]}" domain="[('model', '=', 'helpdesk.support')]"/>
+               </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="web_kanban_custom_helpdesk_support_form">
+            <field name="name">helpdesk_stage_web_kanban_custom.form</field>
+            <field name="model">helpdesk.stage.config</field>
+            <field name="inherit_id" ref="website_helpdesk_support_ticket.helpdesk_team_stage_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='requirements']" position="after">
+                    <field name="custom_ids" context="{'default_helpdesk_stage_id': active_id}"> </field>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
