@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="act_res_partner_all_sale_order" model="ir.actions.act_window">
+        <field name="name">Quotations and Sales</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,graph</field>
+    </record>
+
+    <record id="act_res_partner_all_lead" model="ir.actions.act_window">
+        <field name="name">All Leads</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form,graph</field>
+    </record>
+
+    <record id="view_crm_lead_caret_form" model="ir.ui.view">
+        <field name="name">crm.lead.form</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_oppor" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div/button[@name='action_schedule_meeting']" position="after">
+                <button class="oe_stat_button" type="object" name="view_all_so" icon="fa-pencil-square-o" context="{'search_default_partner_id': partner_id}">
+                    <div class="o_stat_info">
+	                    <field name="all_so_count" class="o_stat_value"/>
+	                    <span class="o_stat_text">All Quotes</span>
+	                </div>
+                </button>
+            </xpath>		
+        </field>
+    </record>
+
+    <record id="view_sale_order_caret_form" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div/button[@name='action_view_invoice']" position="after">
+                <button class="oe_stat_button" type="object" name="view_all_lead" icon="fa-pencil-square-o" context="{'search_default_partner_id': partner_id}">
+                    <div class="o_stat_info">
+	                    <field name="all_lead_count" class="o_stat_value"/>
+	                    <span class="o_stat_text">All opportunities</span>
+	                </div>
+                </button>
+            </xpath>		
+        </field>
+    </record>
+</odoo>	

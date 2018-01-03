@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="crm_opporinherits_view">
+            <field name="name">Opportunities form view</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_action']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='title_action']" position="before">
+                    <button name="crm_next_action_hour" string="uur" type="object" class="oe_highlight o_wow"/>
+                    <button name="crm_next_action_day" string="dag" type="object" class="oe_highlight o_wow"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
