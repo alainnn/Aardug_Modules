@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <!--
+        This template is the ribbon at the top of the salesteam dashboard that adds
+        some figures to it. We call this rubbon the "TicketDashboard".
+    -->
+    <t t-name="resource_management.ResourceDashboard">
+        <div t-if="show_demo or values" class="o_resource_dashboard">
+            <div t-attf-class="#{show_demo ? 'o_demo' : ''}">
+                <table class="table table-condensed">
+                    <tr>
+                        <td class="o_text">
+                            
+                        </td>
+                        <td class="o_text">
+                            <div class="o_highlight">Double</div>
+                        </td>
+                        <td class="o_text">
+                            <div class="o_highlight">Not Linked</div>
+                        </td>
+                        <td class="o_text">
+                            <div class="o_highlight">Planned Hours</div>
+                        </td>
+                        <td class="o_text">
+                            <div class="o_highlight">Scheduled Hours</div>
+                        </td>
+                        <td class="o_text">
+                            <div class="o_highlight">Task Needed</div>
+                        </td>
+                        <td class="o_text">
+                            <div class="o_highlight">Task Overplanned</div>
+                        </td>
+
+                        <td class="o_text">
+                            <div class="o_highlight">Resource Available</div>
+                        </td>
+                        <td class="o_text">
+                            <div class="o_highlight">Resource Booked</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="o_text">
+                            Today
+                        </td>
+                        <td class="o_warning" title="Today Double Booked">
+                            <a href="#" class="o_dashboard_action" data-extra="today_double_booked" name="resource_management.task_schedule_action_dashboard">
+                                <t t-esc="values['double']['today']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Today Not Linked">
+                            <a href="#" class="o_dashboard_action" data-extra="today_not_linked" name="resource_management.task_schedule_action_dashboard">
+                                <t t-esc="values['not_linked']['today']"/>
+                            </a>
+                        </td>
+                         <td class="o_warning" title="Today Planned Hours">
+                            <a href="#" class="o_dashboard_action" data-extra="today_planned_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['planned_hours']['today']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Today Scheduled Hours">
+                            <a href="#" class="o_dashboard_action" data-extra="today_scheduled_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['scheduled_hours']['today']"/>
+                            </a>
+                        </td>
+
+                        <td class="o_warning" title="Today Task Needed">
+                            <a href="#" class="o_dashboard_action" data-extra="today_task_needed" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['task_needed']['today']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Today Task Overplanned">
+                            <a href="#" class="o_dashboard_action" data-extra="today_task_overplanned" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['task_overplanned']['today']"/>
+                            </a>
+                        </td>
+
+                        <td class="o_warning" title="Resource Available Today">
+                            <a href="#" class="o_dashboard_action" data-extra="today_resource_available" name="resource_management.action_resource_resource_tree_dashboard">
+                                <t t-esc="values['resource_available']['today']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Resource Booked Today">
+                            <a href="#" class="o_dashboard_action" data-extra="today_resource_booked" name="resource_management.action_resource_resource_tree_dashboard">
+                                <t t-esc="values['resource_booked']['today']"/>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="o_text">
+                            Tomorrow
+                        </td>
+                        <td class="o_warning" title="Tomorrow Double Booked">
+                            <a href="#" class="o_dashboard_action" data-extra="tomorrow_double_booked" name="resource_management.task_schedule_action_dashboard">
+                                <t t-esc="values['double']['tomorrow']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Tomorrow Not Linked">
+                            <a href="#" class="o_dashboard_action" data-extra="tomorrow_not_linked" name="resource_management.task_schedule_action_dashboard">
+                                <t t-esc="values['not_linked']['tomorrow']"/>
+                            </a>
+                        </td>
+                         <td class="o_warning" title="Tomorrow Planned Hours">
+                            <a href="#" class="o_dashboard_action" data-extra="tomorrow_planned_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['planned_hours']['tomorrow']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Tomorrow Scheduled Hours">
+                            <a href="#" class="o_dashboard_action" data-extra="tomorrow_scheduled_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['scheduled_hours']['tomorrow']"/>
+                            </a>
+                        </td>
+
+
+                        <td class="o_warning" title="Tomorrow Task Needed">
+                            <a href="#" class="o_dashboard_action" data-extra="tomorrow_task_needed" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['task_needed']['tomorrow']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Tomorrow Task Overplanned">
+                            <a href="#" class="o_dashboard_action" data-extra="tomorrow_task_overplanned" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['task_overplanned']['tomorrow']"/>
+                            </a>
+                        </td>
+                        <td class="o_warning" title="Resource Available Tomorrow">
+                            <a href="#" class="o_dashboard_action" data-extra="tomorrow_resource_available" name="resource_management.action_resource_resource_tree_dashboard">
+                                <t t-esc="values['resource_available']['tomorrow']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Resource Booked Tomorrow">
+                            <a href="#" class="o_dashboard_action" data-extra="tomorrow_resource_booked" name="resource_management.action_resource_resource_tree_dashboard">
+                                <t t-esc="values['resource_booked']['tomorrow']"/>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="o_text">
+                            This Week
+                        </td>
+                        <td class="o_warning" title="Double Booked This Week">
+                            <a href="#" class="o_dashboard_action" data-extra="this_week_double_booked" name="resource_management.task_schedule_action_dashboard">
+                                <t t-esc="values['double']['this_week']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Not Linked This Week">
+                            <a href="#" class="o_dashboard_action" data-extra="this_week_not_linked" name="resource_management.task_schedule_action_dashboard">
+                                <t t-esc="values['not_linked']['this_week']"/>
+                            </a>
+                        </td>
+                         <td class="o_warning" title="Planned Hours This Week">
+                            <a href="#" class="o_dashboard_action" data-extra="this_week_planned_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['planned_hours']['this_week']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Scheduled Hours This Week">
+                            <a href="#" class="o_dashboard_action" data-extra="this_week_scheduled_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['scheduled_hours']['this_week']"/>
+                            </a>
+                        </td>
+
+
+                        <td class="o_warning" title="Task Needed This Week">
+                            <a href="#" class="o_dashboard_action" data-extra="this_week_task_needed" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['task_needed']['this_week']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Task Overplanned This Week">
+                            <a href="#" class="o_dashboard_action" data-extra="this_week_task_overplanned" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['task_overplanned']['this_week']"/>
+                            </a>
+                        </td>
+                        <td class="o_warning" title="Resource Available This Week">
+                            <a href="#" class="o_dashboard_action" data-extra="this_week_resource_available" name="resource_management.action_resource_resource_tree_dashboard">
+                                <t t-esc="values['resource_available']['this_week']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Resource Booked This Week">
+                            <a href="#" class="o_dashboard_action" data-extra="this_week_resource_booked" name="resource_management.action_resource_resource_tree_dashboard">
+                                <t t-esc="values['resource_booked']['this_week']"/>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="o_text">
+                            Next Week
+                        </td>
+                        <td class="o_warning" title="Double Booked Next Week">
+                            <a href="#" class="o_dashboard_action" data-extra="next_week_double_booked" name="resource_management.task_schedule_action_dashboard">
+                                <t t-esc="values['double']['next_week']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Not Linked Next Week">
+                            <a href="#" class="o_dashboard_action" data-extra="next_week_not_linked" name="resource_management.task_schedule_action_dashboard">
+                                <t t-esc="values['not_linked']['next_week']"/>
+                            </a>
+                        </td>
+                         <td class="o_warning" title="Planned Hours Next Week">
+                            <a href="#" class="o_dashboard_action" data-extra="next_week_planned_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['planned_hours']['next_week']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Scheduled Hours Next Week">
+                            <a href="#" class="o_dashboard_action" data-extra="next_week_scheduled_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['scheduled_hours']['next_week']"/>
+                            </a>
+                        </td>
+
+
+                        <td class="o_warning" title="Task Needed Next Week">
+                            <a href="#" class="o_dashboard_action" data-extra="next_week_task_needed" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['task_needed']['next_week']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Task Overplanned Next Week">
+                            <a href="#" class="o_dashboard_action" data-extra="next_week_task_overplanned" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['task_overplanned']['next_week']"/>
+                            </a>
+                        </td>
+                        <td class="o_warning" title="Resource Available Next Week">
+                            <a href="#" class="o_dashboard_action" data-extra="next_week_resource_available" name="resource_management.action_resource_resource_tree_dashboard">
+                                <t t-esc="values['resource_available']['next_week']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Resource Booked Next Week">
+                            <a href="#" class="o_dashboard_action" data-extra="next_week_resource_booked" name="resource_management.action_resource_resource_tree_dashboard">
+                                <t t-esc="values['resource_booked']['next_week']"/>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="o_text">
+                            This Month
+                        </td>
+                        <td class="o_warning" title="Double Booked This Month">
+                            <a href="#" class="o_dashboard_action" data-extra="this_month_double_booked" name="resource_management.task_schedule_action_dashboard">
+                                <t t-esc="values['double']['this_month']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Not Linked This Month">
+                            <a href="#" class="o_dashboard_action" data-extra="this_month_not_linked" name="resource_management.task_schedule_action_dashboard">
+                                <t t-esc="values['not_linked']['this_month']"/>
+                            </a>
+                        </td>
+                         <td class="o_warning" title="Planned Hours This Month">
+                            <a href="#" class="o_dashboard_action" data-extra="this_month_planned_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['planned_hours']['this_month']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Scheduled Hours This Month">
+                            <a href="#" class="o_dashboard_action" data-extra="this_month_scheduled_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['scheduled_hours']['this_month']"/>
+                            </a>
+                        </td>
+
+
+                        <td class="o_warning" title="Task Needed This Month">
+                            <a href="#" class="o_dashboard_action" data-extra="this_month_task_needed" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['task_needed']['this_month']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Task Overplanned This Month">
+                            <a href="#" class="o_dashboard_action" data-extra="this_month_task_overplanned" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['task_overplanned']['this_month']"/>
+                            </a>
+                        </td>
+                        <td class="o_warning" title="Resource Available This Month">
+                            <a href="#" class="o_dashboard_action" data-extra="this_month_resource_available" name="resource_management.action_resource_resource_tree_dashboard">
+                                <t t-esc="values['resource_available']['this_month']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Resource Booked This Month">
+                            <a href="#" class="o_dashboard_action" data-extra="this_month_resource_booked" name="resource_management.action_resource_resource_tree_dashboard">
+                                <t t-esc="values['resource_booked']['this_month']"/>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="o_text">
+                            Next Month
+                        </td>
+                        <td class="o_warning" title="Double Booked Next Month">
+                            <a href="#" class="o_dashboard_action" data-extra="next_month_double_booked" name="resource_management.task_schedule_action_dashboard">
+                                <t t-esc="values['double']['next_month']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Not Linked Next Month">
+                            <a href="#" class="o_dashboard_action" data-extra="next_month_not_linked" name="resource_management.task_schedule_action_dashboard">
+                                <t t-esc="values['not_linked']['next_month']"/>
+                            </a>
+                        </td>
+                         <td class="o_warning" title="Planned Hours Next Month">
+                            <a href="#" class="o_dashboard_action" data-extra="next_month_planned_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['planned_hours']['next_month']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Scheduled Hours Next Month">
+                            <a href="#" class="o_dashboard_action" data-extra="next_month_scheduled_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['scheduled_hours']['next_month']"/>
+                            </a>
+                        </td>
+
+
+                        <td class="o_warning" title="task Needed Next Month">
+                            <a href="#" class="o_dashboard_action" data-extra="next_month_task_needed" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['task_needed']['next_month']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Task Overplanned Next Month">
+                            <a href="#" class="o_dashboard_action" data-extra="next_month_task_overplanned" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['task_overplanned']['next_month']"/>
+                            </a>
+                        </td>
+                        <td class="o_warning" title="Resource Available Next Month">
+                            <a href="#" class="o_dashboard_action" data-extra="next_month_resource_available" name="resource_management.action_resource_resource_tree_dashboard">
+                                <t t-esc="values['resource_available']['next_month']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Resource Booked Next Month">
+                            <a href="#" class="o_dashboard_action" data-extra="next_month_resource_booked" name="resource_management.action_resource_resource_tree_dashboard">
+                                <t t-esc="values['resource_booked']['next_month']"/>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+<!-- Boxes============== -->
+            <div t-attf-class="#{show_demo ? 'o_demo' : 'o_resource_dash'}">
+                <table class="table table-condensed">
+                    <tr>
+                        <td class="o_text">
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="o_main" title="Task New">
+                            <a href="#" class="o_dashboard_action" data-extra="new_task" name="resource_management.project_task_action_dashboard">
+                                <span class="fa fa-th-large fa-3x"/><br/>
+                                <t t-esc="values['no_of_task']['no_of_task']"/>
+                                Task New
+                            </a>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="o_main" title="Task No Team">
+                            <a href="#" class="o_dashboard_action" data-extra="task_no_team" name="resource_management.project_task_action_dashboard">
+                                <span class="fa fa-th-large fa-3x"/><br/>
+                                <t t-esc="values['task_no_team']['task_no_team']"/>
+                                Task No Team
+                            </a>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="o_main" title="Task Overdue">
+                            <a href="#" class="o_dashboard_action" data-extra="task_overdue" name="resource_management.project_task_action_dashboard">
+                                <span class="fa fa-th-large fa-3x"/><br/>
+                                <t t-esc="values['task_overdue']['task_overdue']"/>
+                                Task Overdue
+                            </a>
+                        </td>
+                        <td></td>
+                    </tr>
+
+                </table>
+            </div>
+
+<!-- second table -->
+            <div t-attf-class="#{show_demo ? 'o_demo' : 'o_resource_dash'}">
+
+                <table class="table table-condensed">
+
+                    <tr>
+                        <td class="o_text">
+                            
+                        </td>
+                        <td class="o_text">
+                            <div class="o_highlight">Planned Hours</div>
+                        </td>
+                        <td class="o_text">
+                            <div class="o_highlight">Scheduled Hours</div>
+                        </td>
+                        <td class="o_text">
+                            <div class="o_highlight">Realized Hours</div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="o_text">
+                            Yesterday
+                        </td>
+                        <td class="o_warning" title="Yesterday Planned Hours">
+                            <a href="#" class="o_dashboard_action" data-extra="yesterday_planned_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['planned_hours']['yesterday']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Yesterday Scheduled Hours">
+                            <a href="#" class="o_dashboard_action" data-extra="yesterday_scheduled_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['scheduled_hours']['yesterday']"/>
+                            </a>
+                        </td>
+                         <td class="o_warning" title="Yesterday Realized Hours">
+                            <a href="#" class="o_dashboard_action" data-extra="yesterday_realized_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['realized_hours']['yesterday']"/>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="o_text">
+                            Last Week
+                        </td>
+                        <td class="o_warning" title="Last Week Planned Hours">
+                            <a href="#" class="o_dashboard_action" data-extra="last_week_planned_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['planned_hours']['last_week']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Last Week Scheduled Hours">
+                            <a href="#" class="o_dashboard_action" data-extra="last_week_scheduled_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['scheduled_hours']['last_week']"/>
+                            </a>
+                        </td>
+                         <td class="o_warning" title="Last Week Realized Hours">
+                            <a href="#" class="o_dashboard_action" data-extra="last_week_realized_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['realized_hours']['last_week']"/>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="o_text">
+                            Last Month
+                        </td>
+                        <td class="o_warning" title="Last Month Planned Hours">
+                            <a href="#" class="o_dashboard_action" data-extra="last_month_planned_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['planned_hours']['last_month']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Last Month Scheduled Hours">
+                            <a href="#" class="o_dashboard_action" data-extra="last_month_scheduled_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['scheduled_hours']['last_month']"/>
+                            </a>
+                        </td>
+                         <td class="o_warning" title="Last Month Realized Hours">
+                            <a href="#" class="o_dashboard_action" data-extra="last_month_realized_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['realized_hours']['last_month']"/>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="o_text">
+                            Next Week
+                        </td>
+                         <td class="o_warning" title="Planned Hours Next Week">
+                            <a href="#" class="o_dashboard_action" data-extra="next_week_planned_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['planned_hours']['next_week']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Scheduled Hours Next Week">
+                            <a href="#" class="o_dashboard_action" data-extra="next_week_scheduled_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['scheduled_hours']['next_week']"/>
+                            </a>
+                        </td>
+                         <td class="o_warning" title="Next Week Realized Hours">
+                            <a href="#" class="o_dashboard_action" data-extra="next_week_realized_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['realized_hours']['next_week']"/>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="o_text">
+                            This Month
+                        </td>
+                        <td class="o_warning" title="Planned Hours This Month">
+                            <a href="#" class="o_dashboard_action" data-extra="this_month_planned_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['planned_hours']['this_month']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Scheduled Hours This Month">
+                            <a href="#" class="o_dashboard_action" data-extra="this_month_scheduled_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['scheduled_hours']['this_month']"/>
+                            </a>
+                        </td>
+                         <td class="o_warning" title="Realized Hours This Month">
+                            <a href="#" class="o_dashboard_action" data-extra="this_month_realized_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['realized_hours']['this_month']"/>
+                            </a>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td class="o_text">
+                            Next Month
+                        </td>
+                        <td class="o_warning" title="Planned Hours Next Month">
+                            <a href="#" class="o_dashboard_action" data-extra="next_month_planned_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['planned_hours']['next_month']"/>
+                            </a>
+                        </td>
+                        <td class="o_main" title="Scheduled Hours Next Month">
+                            <a href="#" class="o_dashboard_action" data-extra="next_month_scheduled_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['scheduled_hours']['next_month']"/>
+                            </a>
+                        </td>
+                         <td class="o_warning" title="Realized Hours Next Month">
+                            <a href="#" class="o_dashboard_action" data-extra="next_month_realized_hours" name="resource_management.project_task_action_dashboard">
+                                <t t-esc="values['realized_hours']['next_month']"/>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div t-if="show_demo" class="o_welcome_message">
+                <div class="o_welcome_image">
+                    <i class="fa fa-smile-o fa-5x"></i>
+                </div>
+                <div class="o_welcome_content">
+                    <h2>Hi there!</h2>
+                    <h4>Great sales journeys start with a clean pipeline.</h4>
+                    <h4>Create a few opportunities in it.</h4>
+                    <a class="btn btn-primary o_dashboard_action" name="crm.action_your_pipeline">My Pipeline</a>
+                </div>
+            </div>
+        </div>
+        <div class="oe_clear"/>
+    </t>
+</templates>

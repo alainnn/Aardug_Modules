@@ -1,0 +1,905 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="inherit_project_task_form" model="ir.ui.view">
+            <field name="name">project task</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header" position="inside">
+                        <button name="action_reschedule" string="Reschedule" type="object"
+                            class="btn-primary" attrs="{'invisible': [('display_reschedule', '!=', True)]}"/>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page[2]" position="before">
+                    <page string="Team" name="team">
+                        <button string="Manage Resources" type="object"
+                                name="kanban_selector" class="btn btn-primary oe_read_only"
+                                style="margin-top: 10px; margin-bottom: 10px;"
+                                context="{'default_groups_ref': ['base.group_user',
+                                                                 'base.group_partner_manager',
+                                                                 'project.group_project_user'],
+                                          'date_start': date_start,
+                                          'date_end': date_end}"/>
+                        <field colspan="4" name="resource_ids" widget="many2many_kanban"
+                               context="{'default_groups_ref': ['base.group_user',
+                                                                'base.group_partner_manager',
+                                                                'project.group_project_user'],
+                                         'date_start': date_start,
+                                         'date_end': date_end}"
+                               nolabel="1">
+                            <kanban quick_create="false" create="false" delete="true">
+                                <field name="name"/>
+                                <field name="resource_image"/>
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div style="position: relative; border: 1px solid lightgrey; border-radius: 5px; box-shadow: 0px 0px 5px lightgrey;">
+                                            <!-- <a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; 
+                                            padding: 4px; diplay: inline-block">X</a> -->
+                                            <div class="oe_module_vignette">
+                                                <img t-att-src="kanban_image('resource.resource', 'resource_image', record.id.value)"
+                                                     class="oe_avatar oe_kanban_avatar_smallbox"/>
+                                                <div class="oe_resource_details">
+                                                    <ul style="margin-bottom: 4px;">
+                                                        <li><b><field name="name"/></b></li>
+                                                        <li style="color: green; font-weight: bold;">Occupied</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </templates>
+                            </kanban>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page[5]" position="after">
+                    <page string="Schedule">
+                        <field name="schedule_ids" context="{'default_task_id': id}" 
+                            domain="[('resource_id', '=', parent.resource_ids.id)]">
+                        <tree colors="#7c7bad:raw_color == 'conflict';"
+                              decoration-danger="(date_start&lt;task_date_start or date_end&gt;task_date_end)"> 
+                                <field name="resource_id" context="{'res_task_id':parent.id}"/>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <field name="status_icon" widget="image" string=""/>
+                                <field name="task_date_start" invisible="1"/>
+                                <field name="task_date_end" invisible="1"/>
+                                <field name="raw_color" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='date_start']" position="replace"/>
+                <xpath expr="//field[@name='date_end']" position="replace"/>
+                <xpath expr="//field[@name='duration']" position="replace"/>
+                <xpath expr="//label[@for='duration']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <field name="user_id" position="after">
+                    <field name="date_start" required="1"/>
+                    <field name="date_end" required="1"/>
+                    <field name="display_reschedule" invisible="1"/>
+                </field>
+                <field name="tag_ids" position="after">
+                    <field name="duration" widget="time_delta" readonly="1"/>
+                    <field name="date_finished"/>
+                    <field name="hour_count" widget="float_time" readonly="1"/>
+                    <field name="to_plan_hours" widget="progressbar" readonly="1"/>
+                </field>
+                <field name="date_last_stage_update" position="after">
+                    <field name="auto_schedule"/>
+                </field>
+                <xpath expr="//form/sheet/notebook/page[6]" position="after">
+                    <page string="Calendar Note">
+                        <field name="notes_for_email" placeholder="Calendar Note..."/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_task_tree2_inherit" model="ir.ui.view">
+            <field name="name">project.task.tree</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="hr_timesheet.view_task_tree2_inherited"/>
+            <field name="arch" type="xml">
+                <field name="planned_hours" position="after">
+                    <field name="hour_count" widget="progressbar"/>
+                    <field name="to_plan_hours" widget="progressbar"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="inherit_project_native_form" model="ir.ui.view">
+            <field name="name">Task</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project_native.ganttaps_view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="date_finished" position="replace"/>
+                <field name="constrain_type" position="replace"/>
+                <field name="constrain_date" position="replace"/>
+                <xpath expr="//page/group/group/div" position="after">
+                    <field name="constrain_type"/>
+                    <field name="constrain_date"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inherit_resource_form" model="ir.ui.view">
+            <field name="name">Resource</field>
+            <field name="model">resource.resource</field>
+            <field name="inherit_id" ref="resource.resource_resource_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="replace"/>
+                <xpath expr="//field[@name='resource_type']" position="replace"/>
+                <xpath expr="//field[@name='user_id']" position="replace"/>
+                <xpath expr="//field[@name='time_efficiency']" position="replace"/>
+                <field name="active" position="replace"/>
+                <xpath expr="//form/group[1]" position="before">
+                    <field name="resource_image" widget='image' class="oe_avatar"/>
+                    <div class="oe_button_box" name="button_box" groups="base.group_user">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1 class="o_row">
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <field name="category_ids" widget="many2many_tags" 
+                        attrs="{'invisible': [('resource_type', '!=', 'user')]}"/>
+                </xpath>
+                <xpath expr="//form/group/group" position="inside">
+                    <field name="resource_type"/>
+                    <field name="user_id" attrs="{'readonly':[('resource_type','=','material')]}"/>
+                    <field name="time_efficiency"/>
+                </xpath>
+                <field name="calendar_id" position="after">
+                    <field name="employee_id" attrs="{'invisible': [('resource_type', '!=', 'user')]}"
+                           readonly="1"/>
+                </field>
+                <xpath expr="//form/group/group" position="inside">
+                    <field name="str_category"/>
+                </xpath>
+                <xpath expr="//form/group" position="after">
+                    <notebook>
+                        <page string="Dates">
+                            <field name="start_end_ids">
+                                <tree editable="bottom">
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="task_schedule_tree_view">
+            <field name="name">Schedule</field>
+            <field name="model">task.schedule</field>
+            <field name="arch" type="xml">
+            <tree colors="#7c7bad:raw_color == 'conflict';"
+                  decoration-danger="(date_start&lt;task_date_start or date_end&gt;task_date_end)" create="0"
+                  >
+                <field name="name" invisible="1"/>
+                <field name="resource_id"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="task_id"/>
+                <field name="meeting_id"/>
+                <field name="status_icon" widget="image" string=""/>
+                <field name="task_date_start" invisible="1"/>
+                <field name="task_date_end" invisible="1"/>
+                <field name="raw_color" invisible="1"/>
+                <field name="timesheet_id" invisible="1"/>
+                <field name="locked" invisible="1"/>
+            </tree>
+          </field>
+        </record>
+
+        <record model="ir.ui.view" id="task_schedule_search_view">
+            <field name="name">Schedule</field>
+            <field name="model">task.schedule</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="resource_id" string="Resource"/>
+                    <field name="task_id" string="Task"/>
+                    <filter string="Future Schedules" name="future_schedules"
+                        domain="[('date_start','&gt;=',current_date)]"/>
+                <!-- double booked -->
+                    <filter string="Today Double Booked" name="today_double_booked" domain="[]" context="{'today_double_booked':1}"/>
+                    <filter string="Tomorrow Double Booked" name="tomorrow_double_booked" domain="[]" context="{'tomorrow_double_booked':1}"/>
+                    <filter string="This Week Double Booked" name="this_week_double_booked" domain="[]" context="{'this_week_double_booked':1}"/>
+                    <filter string="Next Week Double Booked" name="next_week_double_booked" domain="[]" context="{'next_week_double_booked':1}"/>
+                    <filter string="This Month Double Booked" name="this_month_double_booked" domain="[]" context="{'this_month_double_booked':1}"/>
+                    <filter string="Next Month Double Booked" name="next_month_double_booked" domain="[]" context="{'next_month_double_booked':1}"/>
+
+                <!-- not linked -->
+                    <filter string="Today Not Linked" name="today_not_linked" domain="[]" context="{'today_not_linked':1}"/>
+                    <filter string="Tomorrow Not Linked" name="tomorrow_not_linked" domain="[]" context="{'tomorrow_not_linked':1}"/>
+                    <filter string="This Week Not Linked" name="this_week_not_linked" domain="[]" context="{'this_week_not_linked':1}"/>
+                    <filter string="Next Week Not Linked" name="next_week_not_linked" domain="[]" context="{'next_week_not_linked':1}"/>
+                    <filter string="This Month Not Linked" name="this_month_not_linked" domain="[]" context="{'this_month_not_linked':1}"/>
+                    <filter string="Next Month Not Linked" name="next_month_not_linked" domain="[]" context="{'next_month_not_linked':1}"/>
+
+                <!-- task_overplanned -->
+                    <!-- <filter string="Today Taskoverplanned" name="today_double_booked"/>
+                    <filter string="Tomorrow Taskoverplanned" name="tomorrow_double_booked"/>
+                    <filter string="This Week Taskoverplanned" name="this_week_double_booked"/>
+                    <filter string="Next Week Taskoverplanned" name="next_week_double_booked"/>
+                    <filter string="This Month Taskoverplanned" name="this_month_double_booked"/>
+                    <filter string="Next Month Taskoverplanned" name="next_month_double_booked"/> -->
+                </search>
+            </field>
+        </record>
+
+        <record id="view_task_search_form_inh" model="ir.ui.view">
+            <field name="name">project.task.search.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='inactive']" position="after">
+                    <!-- planned hours -->
+                    <filter string="Today Planned Hours" name="today_planned_hours" domain="[]" context="{'today_planned_hours':1}"/>
+                    <filter string="Tomorrow Planned Hours" name="tomorrow_planned_hours" domain="[]" context="{'tomorrow_planned_hours':1}"/>
+                    <filter string="This Week Planned Hours" name="this_week_planned_hours" domain="[]" context="{'this_week_planned_hours':1}"/>
+                    <filter string="Next Week Planned Hours" name="next_week_planned_hours" domain="[]" context="{'next_week_planned_hours':1}"/>
+                    <filter string="This Month Planned Hours" name="this_month_planned_hours" domain="[]" context="{'this_month_planned_hours':1}"/>
+                    <filter string="Next Month Planned Hours" name="next_month_planned_hours" domain="[]" context="{'next_month_planned_hours':1}"/>
+                    <filter string="Yesterday Planned Hours" name="yesterday_planned_hours" domain="[]" context="{'yesterday_planned_hours':1}"/>
+                    <filter string="Last Week Planned Hours" name="last_week_planned_hours" domain="[]" context="{'last_week_planned_hours':1}"/>
+                    <filter string="Last Month Planned Hours" name="last_month_planned_hours" domain="[]" context="{'last_month_planned_hours':1}"/>
+                <!-- scheduled hours -->
+                    <filter string="Today Scheduled Hours" name="today_scheduled_hours" domain="[]" context="{'today_scheduled_hours':1}"/>
+                    <filter string="Tomorrow Scheduled Hours" name="tomorrow_scheduled_hours" domain="[]" context="{'tomorrow_scheduled_hours':1}"/>
+                    <filter string="This Week Scheduled Hours" name="this_week_scheduled_hours" domain="[]" context="{'this_week_scheduled_hours':1}"/>
+                    <filter string="Next Week Scheduled Hours" name="next_week_scheduled_hours" domain="[]" context="{'next_week_scheduled_hours':1}"/>
+                    <filter string="This Month Scheduled Hours" name="this_month_scheduled_hours" domain="[]" context="{'this_month_scheduled_hours':1}"/>
+                    <filter string="Next Month Scheduled Hours" name="next_month_scheduled_hours" domain="[]" context="{'next_month_scheduled_hours':1}"/>
+                    <filter string="Yesterday Scheduled Hours" name="yesterday_scheduled_hours" domain="[]" context="{'yesterday_scheduled_hours':1}"/>
+                    <filter string="Last Week Scheduled Hours" name="last_week_scheduled_hours" domain="[]" context="{'last_week_scheduled_hours':1}"/>
+                    <filter string="Last Month Scheduled Hours" name="last_month_scheduled_hours" domain="[]" context="{'last_month_scheduled_hours':1}"/>
+                <!-- task_needed -->
+                    <filter string="Today Task Needed" name="today_task_needed" domain="[]" context="{'today_task_needed':1}"/>
+                    <filter string="Tomorrow Task Needed" name="tomorrow_task_needed" domain="[]" context="{'tomorrow_task_needed':1}"/>
+                    <filter string="This Week Task Needed" name="this_week_task_needed" domain="[]" context="{'this_week_task_needed':1}"/>
+                    <filter string="Next Week Task Needed" name="next_week_task_needed" domain="[]" context="{'next_week_task_needed':1}"/>
+                    <filter string="This Month Task Needed" name="this_month_task_needed" domain="[]" context="{'this_month_task_needed':1}"/>
+                    <filter string="Next Month Task Needed" name="next_month_task_needed" domain="[]" context="{'next_month_task_needed':1}"/>
+                <!-- task_overplanned -->
+                    <filter string="Today Task overplanned" name="today_task_overplanned" domain="[]" context="{'today_task_overplanned':1}"/>
+                    <filter string="Tomorrow Task overplanned" name="tomorrow_task_overplanned" domain="[]" context="{'tomorrow_task_overplanned':1}"/>
+                    <filter string="This Week Task overplanned" name="this_week_task_overplanned" domain="[]" context="{'this_week_task_overplanned':1}"/>
+                    <filter string="Next Week Task overplanned" name="next_week_task_overplanned" domain="[]" context="{'next_week_task_overplanned':1}"/>
+                    <filter string="This Month Task overplanned" name="this_month_task_overplanned" domain="[]" context="{'this_month_task_overplanned':1}"/>
+                    <filter string="Next Month Task overplanned" name="next_month_task_overplanned" domain="[]" context="{'next_month_task_overplanned':1}"/>
+                <!-- realized_hours -->
+                    <filter string="Yesterday Realized Hours" name="yesterday_realized_hours" domain="[]" context="{'yesterday_realized_hours':1}"/>
+                    <filter string="Last Week Realized Hours" name="last_week_realized_hours" domain="[]" context="{'last_week_realized_hours':1}"/>
+                    <filter string="Last Month Realized Hours" name="last_month_realized_hours" domain="[]" context="{'last_month_realized_hours':1}"/>
+                    <filter string="Next Week Realized Hours" name="next_week_realized_hours" domain="[]" context="{'next_week_realized_hours':1}"/>
+                    <filter string="This Month Realized Hours" name="this_month_realized_hours" domain="[]" context="{'this_month_realized_hours':1}"/>
+                    <filter string="Next Month Realized Hours" name="next_month_realized_hours" domain="[]" context="{'next_month_realized_hours':1}"/>
+                <!-- new task -->
+                    <filter string="New Task" name="new_task" domain="[]" context="{'new_task':1}"/>
+                <!-- Task No Team -->
+                    <filter string="Task No Team" name="task_no_team" domain="[('resource_ids','=',False)]" context="{'task_no_team':1}"/>
+                <!-- Task_overdue -->
+                    <filter string="Task Overdue" name="task_overdue" domain="[]" context="{'task_overdue':1}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="project_task_action_dashboard">
+            <field name="name"> Task </field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <record id="view_resource_resource_search_dash" model="ir.ui.view">
+            <field name="name">resource.resource.search</field>
+            <field name="model">resource.resource</field>
+            <field name="inherit_id" ref="resource.view_resource_resource_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                <!-- resource available -->
+                    <filter string="Today Resource Available" name="today_resource_available" domain="[]" context="{'today_resource_available':1}"/>
+                    <filter string="Tomorrow Resource Available" name="tomorrow_resource_available" domain="[]" context="{'tomorrow_resource_available':1}"/>
+                    <filter string="This Week Resource Available" name="this_week_resource_available" domain="[]" context="{'this_week_resource_available':1}"/>
+                    <filter string="Next Week Resource Available" name="next_week_resource_available" domain="[]" context="{'next_week_resource_available':1}"/>
+                    <filter string="This Month Resource Available" name="this_month_resource_available" domain="[]" context="{'this_month_resource_available':1}"/>
+                    <filter string="Next Month Resource Available" name="next_month_resource_available" domain="[]" context="{'next_month_resource_available':1}"/>
+                <!-- resource booked -->
+                    <filter string="Today Resource Booked" name="today_resource_booked" domain="[]" context="{'today_resource_booked':1}"/>
+                    <filter string="Tomorrow Resource Booked" name="tomorrow_resource_booked" domain="[]" context="{'tomorrow_resource_booked':1}"/>
+                    <filter string="This Week Resource Booked" name="this_week_resource_booked" domain="[]" context="{'this_week_resource_booked':1}"/>
+                    <filter string="Next Week Resource Booked" name="next_week_resource_booked" domain="[]" context="{'next_week_resource_booked':1}"/>
+                    <filter string="This Month Resource Booked" name="this_month_resource_booked" domain="[]" context="{'this_month_resource_booked':1}"/>
+                    <filter string="Next Month Resource Booked" name="next_month_resource_booked" domain="[]" context="{'next_month_resource_booked':1}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_resource_resource_tree_dashboard" model="ir.actions.act_window">
+            <field name="name">Resources</field>
+            <field name="res_model">resource.resource</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="resource.view_resource_resource_search"/>
+        </record>
+
+        <!-- <record model="ir.ui.view" id="task_schedule_form_occupied">
+            <field name="name">Schedule.form</field>
+            <field name="model">task.schedule</field>
+            <field name="arch" type="xml">
+            <form create="0" edit="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="task_id" required="1" attrs="{'readonly':[('locked', '=', True)]}" domain="[('date_start','&lt;=',date_start), ('date_end', '&gt;=', date_end),('resource_ids.id','=',resource_id)]"/>
+                            <field name="resource_id" attrs="{'readonly':[('locked', '=', True)]}" readonly="True"/>
+                            <field name="date_start" attrs="{'readonly':[('locked', '=', True)]}" readonly="True"/>
+                            <field name="date_end" attrs="{'readonly':[('locked', '=', True)]}" readonly="True"/>
+                            <field name="meeting_id" invisible="1"/>
+                            <field name="task_date_start" invisible="1"/>
+                            <field name="task_date_end" invisible="1"/>
+                            <field name="raw_color" invisible="1"/>
+                            <field name="locked" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+          </field>
+        </record> -->
+
+        <!-- Need this for Task form view -->
+        <record model="ir.ui.view" id="task_schedule_form">
+            <field name="name">Schesule</field>
+            <field name="model">task.schedule</field>
+            <field name="arch" type="xml">
+            <form create="0" edit="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="task_id" required="1" attrs="{'readonly':[('locked', '=', True)]}"
+                                    domain="[('date_start','&lt;=',date_start),
+                                             ('date_end', '&gt;=', date_end),
+                                             ('resource_ids.id','=',resource_id)]"/>
+                            <field name="resource_id" attrs="{'readonly':[('locked', '=', True)]}"/>
+                            <field name="date_start" attrs="{'readonly':[('locked', '=', True)]}"/>
+                            <field name="date_end" attrs="{'readonly':[('locked', '=', True)]}"/>
+                            <field name="meeting_id" invisible="1"/>
+                            <field name="task_date_start" invisible="1"/>
+                            <field name="task_date_end" invisible="1"/>
+                            <field name="raw_color" invisible="1"/>
+                            <field name="locked" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+          </field>
+        </record>
+
+        <record model="ir.ui.view" id="wizard_form_view">
+            <field name="name">wizard.form</field>
+            <field name="model">resource.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Add">
+                    <field name="task_id" invisible="1"/>
+                    <field name="date_start" invisible="1"/>
+                    <field name="date_end" invisible="1"/>
+                    <group col="6">
+                        <!-- ToDo: Phase 2 point #4 for filter on wizard -->
+                        <div col="6">
+                            <field name="category_ids" widget="many2many_tags" nolabel="1" style="width:500px;"/>
+                            <label string="Human" style="margin-left:100px;"/>
+                            <field name="type_user"/>
+                            <label string="Material" style="margin-left:50px;"/>
+                            <field name="type_material"/>
+                        </div>
+                        <label colspan="6" string="Selected Resources"/>
+                        <!-- <field name="selected_resource_ids" widget="many2many" nolabel="1" 
+                            colspan="6">
+                            <tree editable="bottom">
+                                <field name="name" readonly="1"/>
+                                <field name="start_date"/>
+                                <field name="duration"/>
+                            </tree>
+                        </field> -->
+                        <field name="selected_resource_ids" widget="many2many_kanban" nolabel="1" colspan="6">
+                            <kanban quick_create="false" create="false" delete="true">
+                                <field name="name"/>
+                                <field name="resource_image"/>
+                                <field name="category_ids"/>
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div style="position: relative; border: 1px solid lightgrey; border-radius: 5px; box-shadow: 0px 0px 5px lightgrey; font-weight: bold;">
+                                            <a t-if="! read_only_mode" type="delete"
+                                               style="position: absolute; right: 20px; diplay: inline-block ">
+                                               Deselect
+                                            </a>
+                                            <div class="oe_module_vignette">
+                                                <img t-att-src="kanban_image('resource.resource', 'resource_image', record.id.value)"
+                                                     class="oe_avatar oe_kanban_avatar_smallbox"/>
+                                                <div class="oe_resource_details">
+                                                    <ul style="margin-bottom: 4px;">
+                                                        <li><b><field name="name"/></b></li>
+                                                        <li style="color: grey; font-weight: bold;">Occupied</li>
+                                                        <li><field name="str_category"/></li>
+                                                        <!--  TODO multiple ids come
+                                                        <li><field name="category_ids" widget="many2many_tags"/></li> -->
+                                                        <!-- <li style="position: absolute; right: 20px; display: inline-block; margin-top:-20px">
+                                                            <t t-esc="record.designation_ids.raw_value"/>
+                                                            <t t-foreach="record.designation_ids.raw_value" t-as="image">
+                                                                <img t-att-src="kanban_image('resource.designations', 'image', image)"
+                                                                     width="24" height="24" class="oe_kanban_avatar pull-right"/>
+                                                            </t>
+                                                        </li> -->
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </templates>
+                            </kanban>
+                        </field> 
+                    </group>
+                    <group col="6">
+                        <label for="avail_resource_ids" colspan="2" string="Available Resources" style="padding-left: 10px;"/>
+                        <label for="partial_resource_ids" colspan="2" string="Partial Available Resources" style="padding-left: 10px;"/>
+                        <label for="not_avail_resource_ids" colspan="2" string="Not Available Resources" style="padding-left: 10px;"/>
+                        <field name="avail_resource_ids" widget="many2many_kanban" nolabel="1" colspan="2">
+                            <kanban quick_create="false" create="false" delete="true">
+                                <field name="name"/>
+                                <field name="resource_image"/>
+                                <field name="category_ids"/>
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div style="position: relative; border: 1px solid lightgrey; border-radius: 5px; box-shadow: 0px 0px 5px lightgrey;">
+                                            <a t-if="! read_only_mode" type="delete"
+                                               style="position: absolute; right: 20px; diplay: inline-block">
+                                               <b>Select</b>
+                                            </a>
+                                            <div class="oe_module_vignette">
+                                                <img t-att-src="kanban_image('resource.resource', 'resource_image', record.id.value)"
+                                                     class="oe_avatar oe_kanban_avatar_smallbox"/>
+                                                <div class="oe_resource_details">
+                                                    <ul style="margin-bottom: 4px;">
+                                                        <li><b><field name="name"/></b></li>
+                                                        <li style="color: green; font-weight: bold;">Available</li>
+                                                        <li><field name="str_category"/></li>
+                                                        <!-- <li style="position: absolute; right: 20px; display: inline-block; margin-top:-20px">
+                                                            <t t-esc="record.designation_ids.raw_value"/>
+                                                            <t t-foreach="record.designation_ids.raw_value" t-as="image">
+                                                                <img t-att-src="kanban_image('resource.designations', 'image', image)"
+                                                                     width="24" height="24" class="oe_kanban_avatar pull-right"/>
+                                                            </t>
+                                                        </li> -->
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </templates>
+                            </kanban>
+                        </field>
+                        <field name="partial_resource_ids" widget="many2many_kanban" nolabel="1" colspan="2">
+                            <kanban quick_create="false" create="false" delete="true">
+                                <field name="name"/>
+                                <field name="resource_image"/>
+                                <field name="category_ids"/>
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div style="position: relative; border: 1px solid lightgrey; border-radius: 5px; box-shadow: 0px 0px 5px lightgrey;">
+                                            <a t-if="! read_only_mode" type="delete"
+                                               style="position: absolute; right: 20px; diplay: inline-block">
+                                               <b>Select</b>
+                                            </a>
+                                            <div class="oe_module_vignette">
+                                                <img t-att-src="kanban_image('resource.resource', 'resource_image', record.id.value)"
+                                                     class="oe_avatar oe_kanban_avatar_smallbox"/>
+                                                <div class="oe_resource_details">
+                                                    <ul style="margin-bottom: 4px;">
+                                                        <li><b><field name="name"/></b></li>
+                                                        <li style="color: yellowgreen; font-weight: bold;">Partial Available</li>
+                                                        <li><field name="str_category"/></li>
+                                                        <!-- <li style="position: absolute; right: 20px; display: inline-block; margin-top:-20px">
+                                                            <t t-esc="record.designation_ids.raw_value"/>
+                                                            <t t-foreach="record.designation_ids.raw_value" t-as="image">
+                                                                <img t-att-src="kanban_image('resource.designations', 'image', image)"
+                                                                     width="24" height="24" class="oe_kanban_avatar pull-right"/>
+                                                            </t>
+                                                        </li> -->
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <p class="text-justify mb0" t-if="record.allocated_timing.raw_value"><field name="allocated_timing"/></p>
+                                        </div>
+                                    </t>
+                                </templates>
+                            </kanban>
+                        </field>
+                        <field name="not_avail_resource_ids" widget="many2many_kanban" nolabel="1" colspan="2">
+                            <kanban quick_create="false" create="false" delete="true">
+                                <field name="name"/>
+                                <field name="resource_image"/>
+                                <field name="category_ids"/>
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div style="position: relative; border: 1px solid lightgrey; border-radius: 5px; box-shadow: 0px 0px 5px lightgrey;">
+                                            <a t-if="! read_only_mode" type="delete"
+                                               style="position: absolute; right: 20px; diplay: inline-block">
+                                               <b>Select</b>
+                                            </a>
+                                            <div class="oe_module_vignette">
+                                                <img t-att-src="kanban_image('resource.resource', 'resource_image', record.id.value)"
+                                                     class="oe_avatar oe_kanban_avatar_smallbox"/>
+                                                <div class="oe_resource_details">
+                                                    <ul style="margin-bottom: 4px;">
+                                                        <li><b><field name="name"/></b></li>
+                                                        <li style="color: red; font-weight: bold;">
+                                                            Not Available</li>
+                                                        <li><field name="str_category"/></li>
+                                                        <!-- <li style="position: absolute; right: 20px; display: inline-block; margin-top:-20px">
+                                                            <t t-esc="record.designation_ids.raw_value"/>
+                                                            <t t-foreach="record.designation_ids.raw_value" t-as="image">
+                                                                <img t-att-src="kanban_image('resource.designations', 'image', image)"
+                                                                     width="24" height="24" class="oe_kanban_avatar pull-right"/>
+                                                            </t>
+                                                        </li> -->
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </templates>
+                            </kanban>
+                        </field>
+                    </group>
+                    <footer>
+                        <button string="Save" name="save_window_close" type="object" class="btn btn-primary"/>
+                        <button string="Discard" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_schedule_ganttaps" model="ir.ui.view">
+            <field name="name">task.schedule.ganttaps</field>
+            <field name="model">task.schedule</field>
+            <field name="type">ganttaps</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <ganttaps
+                        default_group_by = "resource_id"
+                        main_group_id_name = "resource_id"
+                        predecessor_task_id="task_id"
+                        project_id="resource_id"
+                        name = "name"
+                        date_start="date_start"
+                        date_stop="date_end"
+                     >
+                </ganttaps>
+            </field>
+        </record>
+
+        <record id="view_meeting_ganttaps" model="ir.ui.view">
+            <field name="name">calendar.event.ganttaps</field>
+            <field name="model">calendar.event</field>
+            <field name="type">ganttaps</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <ganttaps
+                        default_group_by = "resource_id"
+                        main_group_id_name = "resource_id"
+                        predecessor_task_id="partner_ids"
+                        project_id="resource_id"
+                        name = "name"
+                        date_start="start"
+                        date_stop="end"
+                     >
+                </ganttaps>
+            </field>
+        </record>
+
+        <record id="inherit_calendar_form" model="ir.ui.view">
+            <field name="name">Calendar Event</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+            <field name="arch" type="xml">
+                <field name="allday" position="after">
+                    <field name="resource_id" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="task_schedule_action">
+            <field name="name">Schedule</field>
+            <field name="res_model">task.schedule</field>
+            <field name="context">{'search_default_future_schedules': 1}</field>
+            <!-- <field name="view_id" ref="task_schedule_form"/> -->
+            <field name="view_mode">tree,form,ganttaps</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="task_schedule_action_dashboard">
+            <field name="name">Schedule Dashboard</field>
+            <field name="res_model">task.schedule</field>
+            <field name="view_mode">tree,form,ganttaps</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="calendar.action_calendar_event">
+            <field name="view_mode">ganttaps</field>
+        </record>
+
+        <menuitem name="Resource Schedule" id="res_schedule" parent="project.menu_project_config"
+                  action="task_schedule_action"/>
+
+        <record id="resource_available_form_view" model="ir.ui.view">
+            <field name="name">resource.availability.form</field>
+            <field name="model">resource.availability</field>
+            <field name="arch" type="xml">
+                <form string="Resource Availability">
+                    <header>
+                        <separator string="Resource Availability" colspan="4"/>
+                    </header>
+                    <group col="6">
+                        <group col="2" colspan="2">
+                            <field name="resource_period" widget="radio"/>
+                            <field name="date_from" attrs="{'invisible': [('resource_period', '!=', 'custom')]}"/>
+                            <field name="date_to" attrs="{'invisible': [('resource_period', '!=', 'custom')]}"/>
+                        </group>
+                        <group col="3" colspan="3">
+                            <div class="col-md-6 col-md-offset-3 o_preview_questions" style="margin-top: 0px; border-radius: 10px;">
+                                <div attrs="{'invisible': [('resource_period', '!=', 'custom')]}">
+                                    <img src="/resource_management/static/description/custom.png"
+                                        height="150" width="150" style="padding: 5px;"/>
+                                </div>
+                                <div attrs="{'invisible': [('resource_period', '!=', 'this_month')]}">
+                                    <img src="/resource_management/static/description/month.png"
+                                        height="150" width="150" style="padding: 5px;"/>
+                                </div>
+                                <div attrs="{'invisible': [('resource_period', '!=', 'this_week')]}">
+                                    <img src="/resource_management/static/description/week.png" 
+                                        height="150" width="150" style="padding: 5px;"/>
+                                </div>
+                                <div attrs="{'invisible': [('resource_period', '!=', 'next_week')]}">
+                                    <img src="/resource_management/static/description/next-week.png" 
+                                        height="150" width="150" style="padding: 5px;"/>
+                                </div>
+                                <div attrs="{'invisible': [('resource_period', '!=', 'next_month')]}">
+                                    <img src="/resource_management/static/description/next-month.png" 
+                                        height="150" width="150" style="padding: 5px;"/>
+                                </div>
+                            </div>
+                        </group>
+                        <group>
+                            <div>
+                                <table width='100%'>
+                                    <tr>
+                                        <td style="height: 30px; width: 70px; background-color: red;border: gray solid 1px;"></td>
+                                        <td style="padding-left: 10px;">Occupied</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height: 30px; width: 70px; background-color: green;border: gray solid 1px;"></td>
+                                        <td style="padding-left: 10px;">Free</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height: 30px; width: 70px; background-color: yellow;border: gray solid 1px;"></td>
+                                        <td style="padding-left: 10px;">Leave</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="height: 30px; width: 70px; border: gray solid 1px;"></td>
+                                        <td style="padding-left: 10px;">Available</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </group>
+                    </group> 
+                    <field name="resource_header" colspan="4" invisible="1" />
+                    <field name="resource_info" colspan="4" invisible="1" />
+                    <field name="resource_header_date" colspan="4" invisible="1" />
+                    <field name="resource_header_day" colspan="4" invisible="1" />
+                    <widget type="Resource_Availability"></widget>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_account_analytic_line_tree_inherit" model="ir.ui.view">
+            <field name="name">account.analytic.line.tree</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="unit_amount" position="before">
+                    <field name="locked" invisible="1"/>
+                    <field name="schedule_id" invisible="1"/>
+                </field>
+                <field name="date" position="attributes">
+                    <attribute name="attrs">{'readonly':[('locked', '=', True)]}</attribute>
+                </field>
+                <field name="user_id" position="attributes">
+                    <attribute name="attrs">{'readonly':[('locked', '=', True)]}</attribute>
+                </field>
+                <field name="name" position="attributes">
+                    <attribute name="attrs">{'readonly':[('locked', '=', True)]}</attribute>
+                </field>
+                <field name="project_id" position="attributes">
+                    <attribute name="attrs">{'readonly':[('locked', '=', True)]}</attribute>
+                </field>
+                <field name="task_id" position="attributes">
+                    <attribute name="attrs">{'readonly':[('locked', '=', True)]}</attribute>
+                </field>
+                <field name="unit_amount" position="attributes">
+                    <attribute name="attrs">{'readonly':[('locked', '=', True)]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="resource_start_end_tree_view" model="ir.ui.view">
+            <field name="name">resource.start_end.tree</field>
+            <field name="model">resource.start_end</field>
+            <field name="arch" type="xml">
+            <tree>
+                <field name="start_date"/>
+                <field name="end_date"/>
+            </tree>
+            </field>
+        </record>
+
+        <!-- <record model="ir.ui.view" id="view_project_kanban_inh">
+            <field name="name">project.project.kanban.inh</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="class">oe_background_grey o_kanban_dashboard o_project_kanban o_resource_kanban</attribute>
+                    <attribute name="js_class">resource_management</attribute>
+                </xpath>
+            </field>
+        </record> -->
+
+        <record id="taskover_view_kanban" model="ir.ui.view" >
+            <field name="name">Task Overview</field>
+            <field name="model">task.overview.dashboard</field>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey o_kanban_dashboard o_resource_kanban" create="0" js_class="resource_management">
+                    <templates>
+                        <t t-name="kanban-box"/>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="open_task_overview" model="ir.actions.act_window">
+            <field name="name">Task Overview</field>
+            <field name="res_model">task.overview.dashboard</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">kanban</field>
+            <field name="target">main</field>
+        </record>
+
+        <menuitem action="open_task_overview" id="menu_task_overview" name="Task Overview Dashboard" parent="project.menu_main_pm" sequence="1"/>
+
+        <record model="ir.actions.act_window" id="action_resource_availability">
+            <field name="name"> Resource Available </field>
+            <field name="res_model">resource.availability</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <menuitem id="menu_resource_availability"
+            name="Resource Availability"
+            parent="project.menu_project_report"
+            action="action_resource_availability"/>
+
+        <!-- <record id="view_task_search_form_date_filter" model="ir.ui.view">
+            <field name="name">project.task.search.form.date.filter</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_search_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='my_tasks']" position="after">
+                    <filter string="Today Tasks" name="today_tasks" domain="['&amp;',('date_start','&gt;=',current_date),('date_start','&lt;=',current_date)]"/>
+                    <filter string="Tomorrow Tasks" name="tomorrow_tasks" domain="['&amp;',('date_start','&gt;',current_date),('date_start','&lt;',(context_today() + datetime.timedelta(days=2)).strftime('%%Y-%%m-%%d'))]"/>
+                </xpath>
+                <xpath expr="//filter[@name='group_message_last_post']" position="after">
+                    <filter name="group_by_day" string="Creation date (day)" domain="[]" context="{'group_by':'date_start:day'}"/>
+                </xpath>
+            </field>
+        </record> -->
+
+        <record model="ir.ui.view" id="filter_view_task_kanban">
+            <field name="name">project.task.kanban.filter</field>
+            <field name="model">project.task</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_small_column kanban_today_resources"  create="0" on_create="quick_create" default_group_by="date_start:day">
+                    <field name="color"/>
+                    <field name="priority"/>
+                    <field name="stage_id" options='{"group_by_tooltip": {"description": "Stage Description", "legend_priority": "Use of stars"}}'/>
+                    <field name="user_id"/>
+                    <field name="user_email"/>
+                    <field name="description"/>
+                    <field name="sequence"/>
+                    <field name="remaining_hours" groups="project.group_time_work_estimation_tasks"/>
+                    <field name="date_deadline"/>
+                    <field name="message_needaction_counter"/>
+                    <field name="tag_ids"/>
+                    <field name="attachment_ids"/>
+                    <field name="displayed_image_id"/>
+                    <field name="active"/>
+                    <field name="legend_blocked"/>
+                    <field name="legend_normal"/>
+                    <field name="legend_done"/>
+                    <field name="resource_name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <div>
+                                        <strong><field name="name"/></strong>
+                                    </div>
+                                    <ul class="text-muted">
+                                        <t t-foreach="record.resource_name.value.split(', ')" t-as='o'>
+                                            <li><t t-esc='o' /></li>
+                                        </t>
+                                    </ul>
+                                </div>
+                                <div class="oe_clear"></div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+         </record>
+
+         <record model="ir.actions.act_window" id="action_task_filter">
+            <field name="name">Allocated Tasks</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="context">{}</field>
+            <field name="domain">[('date_start','&gt;=',datetime.datetime.now().strftime('%Y-%m-%d')),('date_start','&lt;',(datetime.date.today() + datetime.timedelta(days=2)).strftime('%Y-%m-%d'))]</field>
+            <field name="view_id" ref="filter_view_task_kanban"/>
+        </record>
+
+        <menuitem id="menu_task_filter"
+            name="Allocated Tasks"
+            parent="project.menu_project_management"
+            action="action_task_filter"/>
+
+        <!-- ToDo: Need to confirm before live. -->
+        <record model="ir.ui.view" id="task_schedule_kanban">
+            <field name="name">task.schedule.kanban</field>
+            <field name="model">task.schedule</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_small_column o_kanban_project_tasks"  create="0" default_group_by="task_id">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <p><b><field name="task_id" /></b><br/>
+                                <field name="resource_id" /><br/>
+                                <field name="date_start" /><br/>
+                                <field name="date_end" /></p>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+         </record>
+
+         <record model="ir.actions.act_window" id="action_task_schedule_kanban">
+            <field name="name">Wish Trial</field>
+            <field name="res_model">task.schedule</field>
+            <field name="view_mode">kanban,form</field>
+        </record>
+
+        <menuitem id="menu_task_kanban"
+            name="Wish Trial"
+            parent="project.menu_project_management"
+            action="action_task_schedule_kanban"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+       
+    <record model="ir.ui.view" id="hr_exipre_doc.employeedata">
+        <field name="name">employees.template.form.hr_exipre_doc.inherit</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <xpath expr="//page[last()]" position="after">
+                <page string='Verval'>
+                    <group string="Certificate 1">
+                        <group>
+                          <field name="hr_task_certificate1"/>
+                          <field name="certificate1_duration"/>
+                        </group>
+                        <group>
+                          <field name="hr_task_enddate_certificate1"/>
+                          <field name="file_certificate1_attachment" filename="file_name_cirtificate1"/>
+                          <field name="file_name_cirtificate1" invisible="1"/>
+                        </group> 
+                    </group>
+                    <group string="Certificate 2">                           
+                        <group>
+                            <field name="hr_task_certificate2"/>
+                            <field name="certificate2_duration"/>
+                        </group>
+                        <group>
+                            <field name="hr_task_enddate_certificate2"/>  
+                            <field name="certificate2_attachment" filename="file_name_cirtificate2"/>
+                            <field name="file_name_cirtificate2" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Certificate 3">
+                        <group>
+                            <field name="hr_task_certificate3"/>
+                            <field name="certificate3_duration"/>
+                        </group>
+                        <group>                       
+                            <field name="hr_task_enddate_certificate3"/>
+                            <field name="certificate3_attachment" filename="file_name_cirtificate3"/>
+                            <field name="file_name_cirtificate3" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Certificate 4">
+                        <group>
+                            <field name="hr_task_certificate4"/>
+                            <field name="certificate4_duration"/>
+                        </group>
+                        <group>                       
+                            <field name="hr_task_enddate_certificate4"/>
+                            <field name="certificate4_attachment" filename="file_name_cirtificate4"/>
+                            <field name="file_name_cirtificate4" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Certificate 5">
+                        <group>
+                            <field name="hr_task_certificate5"/>
+                            <field name="certificate5_duration"/>
+                        </group>
+                        <group>                       
+                            <field name="hr_task_enddate_certificate5"/>
+                            <field name="certificate5_attachment" filename="file_name_cirtificate5"/>
+                            <field name="file_name_cirtificate5" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Certificate 6">
+                        <group>
+                            <field name="hr_task_certificate6"/>
+                            <field name="certificate6_duration"/>
+                        </group>
+                        <group>                       
+                            <field name="hr_task_enddate_certificate6"/>
+                            <field name="certificate6_attachment" filename="file_name_cirtificate6"/>
+                            <field name="file_name_cirtificate6" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Certificate 7">
+                        <group>
+                            <field name="hr_task_certificate7"/>
+                            <field name="certificate7_duration"/>
+                        </group>
+                        <group>                       
+                            <field name="hr_task_enddate_certificate7"/>
+                            <field name="certificate7_attachment" filename="file_name_cirtificate7"/>
+                            <field name="file_name_cirtificate7" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Certificate 8">
+                        <group>
+                            <field name="hr_task_certificate8"/>
+                            <field name="certificate8_duration"/>
+                        </group>
+                        <group>                       
+                            <field name="hr_task_enddate_certificate8"/>
+                            <field name="certificate8_attachment" filename="file_name_cirtificate8"/>
+                            <field name="file_name_cirtificate8" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Certificate 9">
+                        <group>
+                            <field name="hr_task_certificate9"/>
+                            <field name="certificate9_duration"/>
+                        </group>
+                        <group>                       
+                            <field name="hr_task_enddate_certificate9"/>
+                            <field name="certificate9_attachment" filename="file_name_cirtificate9"/>
+                            <field name="file_name_cirtificate9" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Certificate 10">
+                        <group>
+                            <field name="hr_task_certificate10"/>
+                            <field name="certificate10_duration"/>
+                        </group>
+                        <group>                       
+                            <field name="hr_task_enddate_certificate10"/>
+                            <field name="certificate10_attachment" filename="file_name_cirtificate10"/>
+                            <field name="file_name_cirtificate10" invisible="1"/>
+                        </group>
+                    </group>
+
+                    <group string="Paspoort">
+                        <group>     
+                            <field name="hr_task_passport"/>
+                            <field name="passport_duration"/>
+                        </group>
+                        <group>
+                            <field name="hr_task_enddate_passport"/>
+                            <field name="passport_attachment" filename="file_name_passport"/>
+                            <field name="file_name_passport" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="ID">
+                        <group>
+                            <field name="hr_task_identification"/>
+                            <field name="id_duration"/>
+                        </group>
+                        <group>
+                            <field name="hr_task_enddate_identification"/>
+                            <field name="id_attachment" filename="file_name_id"/>
+                            <field name="file_name_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Rijbewijs">
+                        <group>
+                            <field name="hr_task_driving_license"/>
+                            <field name="licence_duration"/>
+                        </group>
+                        <group>
+                            <field name="hr_task_enddate_driving_license"/>
+                            <field name="licence_attachment" filename="file_name_licence"/>
+                            <field name="file_name_licence" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Werkvergunning">
+                        <group>
+                            <field name="hr_task_work_permit"/>
+                            <field name="work_permit_duration"/>
+                        </group>
+                        <group>
+                            <field name="hr_task_enddate_work_permit"/>
+                            <field name="work_permit_attachment" filename="file_name_permit"/>
+                            <field name="file_name_permit" invisible="1"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+      <record model="ir.ui.view" id="hr_exipre_doc_task">
+          <field name="name">Task</field>
+          <field name="inherit_id" ref="project.view_task_form2"/>
+          <field name="model">project.task</field>
+          <field name="arch" type="xml">
+              <field name="partner_id" position="after">
+                    <field name="employee_id"/>
+              </field>
+          </field>
+      </record>
+    
+      
+        <record id="view_hr_config_settings" model="ir.ui.view">
+            <field name="name">Hr settings</field>
+            <field name="model">hr_employee.config.settings</field>
+            <!-- <field name="priority" eval="20"/> -->
+            <field name="arch" type="xml">
+              <form class="oe_form_configuration">
+                  <header>
+                      <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                      <button string="Cancel" type="object" name="cancel" class="oe_link"/>
+                  </header>
+                  <group string="Certificate 1" name="certificate1">
+                      <div>
+                          <label for="certificate1_label"/>
+                          <field name="certificate1_label" class="oe_inline"
+                                 domain="[('category_id','=', %(product.uom_categ_wtime)d)]"/>
+                          <label for="certificate1_project_id"/>
+                          <field name="certificate1_project_id" class="oe_inline"/>
+                          <label for="certificate1_duration"/>
+                          <field name="certificate1_duration" class="oe_inline"/>
+                      </div>
+                  </group>                  
+                  <group string="Certificate 2" name="certificate2">
+                      <div>
+                          <label for="certificate2_label"/>
+                          <field name="certificate2_label" class="oe_inline"/>
+                          <label for="certificate2_project_id"/>
+                          <field name="certificate2_project_id" class="oe_inline"/>
+                          <label for="certificate2_duration"/>
+                          <field name="certificate2_duration" class="oe_inline"/>
+                      </div>
+                  </group>
+                  <group string="Certificate 3" name="certificate3">
+                      <div>
+                          <label for="certificate3_label"/>
+                          <field name="certificate3_label" class="oe_inline"/>
+                          <label for="certificate3_project_id"/>
+                          <field name="certificate3_project_id" class="oe_inline"/>
+                          <label for="certificate3_duration"/>
+                          <field name="certificate3_duration" class="oe_inline"/>
+                      </div>
+                  </group>
+                  <group string="Certificate 4" name="certificate4">
+                      <div>
+                          <label for="certificate4_label"/>
+                          <field name="certificate4_label" class="oe_inline"/>
+                          <label for="certificate4_project_id"/>
+                          <field name="certificate4_project_id" class="oe_inline"/>
+                          <label for="certificate4_duration"/>
+                          <field name="certificate4_duration" class="oe_inline"/>
+                      </div>
+                  </group>
+                  <group string="Certificate 5" name="certificate5">
+                      <div>
+                          <label for="certificate5_label"/>
+                          <field name="certificate5_label" class="oe_inline"/>
+                          <label for="certificate5_project_id"/>
+                          <field name="certificate5_project_id" class="oe_inline"/>
+                          <label for="certificate5_duration"/>
+                          <field name="certificate5_duration" class="oe_inline"/>
+                      </div>
+                  </group>
+                  <group string="Certificate 6" name="certificate6">
+                      <div>
+                          <label for="certificate6_label"/>
+                          <field name="certificate6_label" class="oe_inline"/>
+                          <label for="certificate6_project_id"/>
+                          <field name="certificate6_project_id" class="oe_inline"/>
+                          <label for="certificate6_duration"/>
+                          <field name="certificate6_duration" class="oe_inline"/>
+                      </div>
+                  </group>
+                  <group string="Certificate 7" name="certificate7">
+                      <div>
+                          <label for="certificate7_label"/>
+                          <field name="certificate7_label" class="oe_inline"/>
+                          <label for="certificate7_project_id"/>
+                          <field name="certificate7_project_id" class="oe_inline"/>
+                          <label for="certificate7_duration"/>
+                          <field name="certificate7_duration" class="oe_inline"/>
+                      </div>
+                  </group>
+                  <group string="Certificate 8" name="certificate8">
+                      <div>
+                          <label for="certificate8_label"/>
+                          <field name="certificate8_label" class="oe_inline"/>
+                          <label for="certificate8_project_id"/>
+                          <field name="certificate8_project_id" class="oe_inline"/>
+                          <label for="certificate8_duration"/>
+                          <field name="certificate8_duration" class="oe_inline"/>
+                      </div>
+                  </group>
+                  <group string="Certificate 9" name="certificate9">
+                      <div>
+                          <label for="certificate9_label"/>
+                          <field name="certificate9_label" class="oe_inline"/>
+                          <label for="certificate9_project_id"/>
+                          <field name="certificate9_project_id" class="oe_inline"/>
+                          <label for="certificate9_duration"/>
+                          <field name="certificate9_duration" class="oe_inline"/>
+                      </div>
+                  </group>
+                  <group string="Certificate 10" name="certificate10">
+                      <div>
+                          <label for="certificate10_label"/>
+                          <field name="certificate10_label" class="oe_inline"/>
+                          <label for="certificate10_project_id"/>
+                          <field name="certificate10_project_id" class="oe_inline"/>
+                          <label for="certificate10_duration"/>
+                          <field name="certificate10_duration" class="oe_inline"/>
+                      </div>
+                  </group>
+                  <group string="Paspoort" name="Paspoort">
+                      <div>
+                          <label for="passport_label"/>
+                          <field name="passport_label" class="oe_inline"/>
+                          <label for="passport_project_id"/>
+                          <field name="passport_project_id" class="oe_inline"/>
+                          <label for="passport_duration"/>
+                          <field name="passport_duration" class="oe_inline"/>
+                      </div>
+                  </group>
+                  <group string="ID" name="ID">
+                      <div>
+                          <label for="identification_label"/>
+                          <field name="identification_label" class="oe_inline"/>
+                          <label for="identification_project_id"/>
+                          <field name="identification_project_id" class="oe_inline"/>
+                          <label for="identification_duration"/>
+                          <field name="identification_duration" class="oe_inline"/>
+                      </div>
+                  </group>
+                  <group string="Rijbewijs" name="license">
+                      <div>
+                          <label for="license_label"/>
+                          <field name="license_label" class="oe_inline"/>
+                          <label for="license_project_id"/>
+                          <field name="license_project_id" class="oe_inline"/>
+                          <label for="license_duration"/>
+                          <field name="license_duration" class="oe_inline"/>
+                      </div>
+                  </group>
+                  <group string="Werkvergunning" name="permit">
+                      <div>
+                          <label for="work_permit_label"/>
+                          <field name="work_permit_label" class="oe_inline"/>
+                          <label for="permit_project_id"/>
+                          <field name="permit_project_id" class="oe_inline"/>
+                          <label for="permit_duration"/>
+                          <field name="permit_duration" class="oe_inline"/>
+                      </div>
+                  </group>
+              </form>
+          </field>
+      </record>
+
+      <record id="action_hr_config_settings" model="ir.actions.act_window">
+          <field name="name">Configure Hr Extensions</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">hr_employee.config.settings</field>
+          <field name="view_mode">form</field>
+          <field name="target">inline</field>
+      </record>
+
+      <menuitem id="menu_hr_exipre_doc_general_settings" name="Settings" parent="hr.menu_human_resources_configuration"
+            action="action_hr_config_settings" groups="base.group_system"/>
+    
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="hr_exipre_doc.action_window">
+      <field name="name">hr_exipre_doc window</field>
+      <field name="res_model">hr_exipre_doc.hr_exipre_doc</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="hr_exipre_doc.action_server">
+      <field name="name">hr_exipre_doc server</field>
+      <field name="model_id" ref="model_hr_exipre_doc_hr_exipre_doc"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="hr_exipre_doc" id="hr_exipre_doc.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="hr_exipre_doc.menu_1" parent="hr_exipre_doc.menu_root"/>
+    <menuitem name="Menu 2" id="hr_exipre_doc.menu_2" parent="hr_exipre_doc.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="hr_exipre_doc.menu_1_list" parent="hr_exipre_doc.menu_1"
+              action="hr_exipre_doc.action_window"/>
+    <menuitem name="Server to list" id="hr_exipre_doc" parent="hr_exipre_doc.menu_2"
+              action="hr_exipre_doc.action_server"/>
+    -->
+  </data>
+</odoo>

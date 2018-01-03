@@ -1,0 +1,33 @@
+.o_web_client .o_resorce_man_kanban {
+    .o_follow_btns.o_followings {
+        .o_unfollows {
+            display: none;
+        }
+        &:hover {
+            .o_followings {
+                display: none;
+            }
+            .o_unfollows {
+                display: inline;
+            }
+        }
+    }
+}
+.avail-report{
+    border: 1px solid lightgrey;
+    td, th {
+        height: 30px;
+    }
+    td {
+        min-width: 70px;
+    }
+    tr td:nth-child(odd) { 
+        background: #f2f2f2;
+    }
+    tr td:nth-child(even){
+        background: #ffffff;
+    }
+    th {
+        color: light
+    }
+}

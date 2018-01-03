@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE xml>
+
+<templates id="resource_available_template" xml:space="preserve">
+
+    <img t-name="ListView.row.image"
+         t-att-height="widget.height || 16"
+         t-att-src="src" />
+
+    <t t-name="resourceDetails">
+        <div style="overflow:auto;">
+            <table class="avail-report" border="1">
+                <t t-foreach="widget.resource_header_date" t-as="date_head">
+                    <tr>
+                        <th class="table_header" style="min-width: 125px; border-bottom: 0px; height: 20px;"></th>
+                        <t t-foreach="date_head.head" t-as="date">
+                            <th colspan="2" class="table_header_date" style="text-align:center; border-bottom: 0px; height: 20px;" t-att-data-date="date.org_date"><t t-esc="date.date" /></th>
+                        </t>
+                    </tr>
+                </t>
+                <t t-foreach="widget.resource_header_day" t-as="day_head">
+                    <tr>
+                        <th class="table_header" style="min-width: 125px; border-top: 0px; height: 20px;"></th>
+                        <t t-foreach="day_head.head" t-as="day">
+                            <th colspan="2" class="table_header" style="text-align:center; border-top: 0px; height: 20px;"><t t-esc="day" /></th>
+                        </t>
+                    </tr>
+                </t>
+                <t t-foreach="widget.resource_header" t-as="header_detail">
+                <tr>
+                    <t t-foreach="header_detail.header" t-as="date">
+                        <th class="table_header" style="text-align:center;"><t t-esc="date" /></th>  
+                    </t>
+                </tr>
+                </t>
+                <t t-foreach="widget.resource_info" t-as="detail">
+                    <tr>
+                        <th class="table_header"><t t-esc="detail.name"/></th>
+                        <t t-foreach="detail.value" t-as="status">
+                            <t t-if="status.state == 'Notapplicable'">
+                                <td class="" t-att-data-empid="status.employee_id" t-att-data-date="status.date">&amp;nbsp;</td>
+                            </t>
+                            <t t-if="status.state == 'Free'">
+                                <td class="summary_click resource_free" t-att-data-empid="status.employee_id"
+                                    t-att-data-date="status.date"/>
+                            </t>
+                            <t t-if="status.state == 'Occupied' and status.is_draft == 'No'">
+                                <td class="summary_click resource_occupied" t-att-data-model="status.data_model"
+                                    t-att-data-id="status.data_id" t-att-data-date="status.date"/>
+                            </t>
+                            <t t-if="status.state == 'Leave' ">
+                                <td class="summary_click resource_leave" t-att-data-model="status.data_model" t-att-data-id="status.data_id" t-att-data-date="status.date"/>
+                            </t>
+                            <t t-if="status.state == 'Available'">
+                                <td class="summary_click" t-att-data-empid="status.employee_id" t-att-data-date="status.date">&amp;nbsp;</td>
+                            </t>
+                        </t>
+                    </tr>
+                </t>
+            </table>
+        </div>
+    </t>
+
+</templates>

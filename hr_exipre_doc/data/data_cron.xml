@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="ir_cron_create_task" model="ir.cron">
+            <field name="name">HR Extensions</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model">hr.employee</field>
+            <field name="function">task_create</field>
+            <field name="args">()</field>
+            <field name="active" eval="True"/>
+        </record>
+        
+    </data>
+</odoo>

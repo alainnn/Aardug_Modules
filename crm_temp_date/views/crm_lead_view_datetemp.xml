@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="crm_opp_temp_view">
+            <field name="name">Opportunities form view for Temp dates</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_tree_activity"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+					<field name="create_date"/>
+					<field name="create_date_old"/>
+					<field name="write_date"/>
+					<field name="write_date_old"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

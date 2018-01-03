@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_quick_task_form" model="ir.ui.view">
+            <field name="name">project.quick.task.form</field>
+            <field name="model">project.quick.task</field>
+            <field name="arch" type="xml">
+                <form string="Quick Task" edit="0" create="0">
+                    <sheet string="Quick Task">
+                        <div class="oe_title">
+                            <h1 class="o_row">
+                                <field name="name" placeholder="Task Title..."/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="project_id" domain="[('active', '=', True)]" context="{'default_use_tasks':1}"/>
+                                <field name="user_id"
+                                    class="o_task_user_field"
+                                    options='{"no_open": True}'/>
+                            </group>
+                            <group>
+                                <field name="date_start" />
+                                <field name="date_end" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="description_page" string="Description">
+                                <field name="description" type="html"/>
+                                <div class="oe_clear"/>
+                            </page>
+                            <page string="Extra Info">
+                                <group>
+                                    <group>
+                                        <field name="sequence" groups="base.group_no_one"/>
+                                        <field name="partner_id"/>
+                                        <field name="company_id" options="{'no_create': True}"/>
+                                        <field name="displayed_image_id"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_view_quick_task" model="ir.actions.act_window">
+            <field name="name">Quick Tasks</field>
+            <field name="res_model">project.quick.task</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_quick_task" name="Quick Task" action="action_view_quick_task" parent="project.menu_project_management"/>
+
+    </data>
+</odoo>

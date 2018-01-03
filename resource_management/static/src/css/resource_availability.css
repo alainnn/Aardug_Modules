@@ -1,0 +1,36 @@
+.table_header {
+    text-align: center;
+    vertical-align: middle;
+    background-color: #f2f2f2;
+}
+.table_header_date {
+    text-align: center;
+    vertical-align: middle;
+    background-color: #f2f2f2;
+}
+.table_header_date:hover{
+    background-color: darkgray;   
+    color:white;
+    cursor:pointer;  /* you may delete this if you want */
+}
+.resource_occupied {
+    background-color: red !important;
+    cursor:pointer;
+}
+.resource_hollyday {
+    background-color: blue !important;
+    cursor:pointer;
+}
+.resource_free {
+    background-color: green !important;
+    cursor:pointer;
+}
+.resource_leave {
+    background-color: yellow !important;
+    cursor:pointer;
+}
+.resource_conflict {
+    background-color: yellow !important;
+    cursor:pointer;
+    background-image: '/resource_management/static/src/img/conflict.png';
+}

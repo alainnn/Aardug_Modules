@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	
+        <record model="ir.ui.view" id="res_partner_inherit_excel">
+             <field name="name">export.res.partner</field>
+             <field name="model">res.partner</field>
+             <field name="inherit_id" ref="base.view_partner_form"/>
+             <field name="arch" type="xml">
+                <xpath expr="//field[@name='title']" position="after">
+                    <field name="export"/>
+                    <field name="export_date" readonly="1"/>
+                </xpath>
+             </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_invoice_inherit_excel">
+             <field name="name">export.account.invoice</field>
+             <field name="model">account.invoice</field>
+             <field name="inherit_id" ref="account.invoice_form"/>
+             <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_invoice']" position="after">
+                    <field name="export"/>
+                    <field name="export_date" readonly="1"/>
+                </xpath>
+             </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_invoice_supplier_inherit_excel">
+             <field name="name">export.account.invoice</field>
+             <field name="model">account.invoice</field>
+             <field name="inherit_id" ref="account.invoice_supplier_form"/>
+             <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="export"/>
+                    <field name="export_date" readonly="1"/>
+                </xpath>
+             </field>
+        </record>
+        
+        <record model="ir.ui.view" id="account_journal_form_extended">
+             <field name="name">export.account.journal</field>
+             <field name="model">account.journal</field>
+             <field name="inherit_id" ref="account.view_account_journal_form"/>
+             <field name="arch" type="xml">
+                <xpath expr="//field[@name='code']" position="after">
+                    <field name="ac_code"/>
+                </xpath>
+             </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_account_form_extended">
+             <field name="name">export.account.account</field>
+             <field name="model">account.account</field>
+             <field name="inherit_id" ref="account.view_account_form"/>
+             <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_type_id']" position="before">
+                    <field name="ac_code"/>
+                </xpath>
+             </field>
+        </record>
+
+        
+   </data>
+</openerp>

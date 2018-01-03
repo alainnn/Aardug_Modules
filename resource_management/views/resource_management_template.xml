@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_backend" name="resource assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/resource_management/static/src/less/r_m.less"/>
+            <link rel="stylesheet" href="/resource_management/static/src/less/resource_dashboard.less"/>
+            <link rel="stylesheet" href="/resource_management/static/src/css/resource_availability.css" />
+            <script type="text/javascript" src="/resource_management/static/src/js/resource_availability.js"/>
+            <script type="text/javascript" src="/resource_management/static/src/js/image_in_tree.js"/>
+            <script type="text/javascript" src="/resource_management/static/src/js/resource_dashboard.js"/>
+        </xpath>
+    </template>
+
+</odoo>

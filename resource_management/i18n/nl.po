@@ -1,0 +1,437 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * website_sale
+# 
+# Translators:
+# Yenthe Van Ginneken <yenthespam@gmail.com>, 2016
+# Eric Geens <ericgeens@yahoo.com>, 2016
+# Martin Trigaux <mat@odoo.com>, 2016
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2016
+# Cas Vissers <casvissers@brahoo.nl>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-16 13:04+0000\n"
+"PO-Revision-Date: 2017-11-16 13:04+0000\n"
+"Last-Translator: Cas Vissers <casvissers@brahoo.nl>, 2016\n"
+"Language-Team: Dutch (https://www.transifex.com/odoo/teams/41243/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: resource_management
+#: model:ir.model.fields,field_description:resource_management.field_project_task_hour_count
+msgid "Schedule Hours"
+msgstr "Schema uren"
+
+#. module: project_native
+#: model:ir.model.fields,field_description:project_native.field_project_task_duration
+msgid "Duration"
+msgstr "Looptijd"
+
+#. module: project_native
+#: model:ir.model.fields,field_description:project_native.field_project_task_date_finished
+msgid "Done Date"
+msgstr "Datum gedaan"
+
+#. module: resource_management
+#: model:ir.model.fields,field_description:resource_management.field_project_task_to_plan_hours
+msgid "To Plan hours"
+msgstr "Om uren te plannen"
+
+#. module: resource_management
+#: model:ir.model.fields,field_description:resource_management.field_project_task_auto_schedule
+msgid "Auto schedule"
+msgstr "Automatisch schema"
+
+#. module: project_native
+#: model:ir.model.fields,field_description:project_native.field_project_task_constrain_type
+msgid "Constraint Type"
+msgstr "Beperkingstype"
+
+#. module: project_native
+#: model:ir.model.fields,field_description:project_native.field_project_task_constrain_date
+msgid "Constraint Date"
+msgstr "Beperkingsdatum"
+
+#. module: project_native
+#: model:ir.ui.view,arch_db:project_native.ganttaps_view_task_form2
+msgid "Plan Duration"
+msgstr "Plan duur"
+
+#. module: project_native
+#: model:ir.model.fields,field_description:project_native.field_project_task_on_gantt
+msgid "Task name on gantt"
+msgstr "Taaknaam op Gantt"
+
+#. module: project_native
+#: model:ir.model.fields,field_description:project_native.field_project_task_is_milestone
+msgid "Mark as Milestone"
+msgstr "Markeren als mijlpaal"
+
+#. module: project_native
+#: model:ir.model.fields,field_description:project_native.field_project_task_add_to_gantt
+msgid "Add to gantt chart"
+msgstr "Voeg toe aan Gantt-diagram"
+
+#. module: project_native
+#: model:ir.model.fields,field_description:project_native.field_project_task_schedule_mode
+msgid "Schedule Mode"
+msgstr "Schedule-modus"
+
+#. module: project_native
+#: selection:project.task,schedule_mode:0
+msgid "Manual"
+msgstr "Met de hand"
+
+#. module: project_native
+#: model:ir.model.fields,field_description:project_native.field_project_task_color_gantt_set
+msgid "Set Color Task"
+msgstr "Stel de kleurtaak in"
+
+#. module: project_native
+#: model:ir.model.fields,field_description:project_native.field_project_task_predecessor_parent_task_id
+msgid "Parent Taskss"
+msgstr "Oudertaaks"
+
+#. module: resource_management
+#: model:ir.model.fields,field_description:resource_management.field_task_schedule_task_id
+msgid "Task"
+msgstr "Taak"
+
+#. module: resource_management
+#: model:ir.model.fields,field_description:resource_management.field_task_schedule_date_start
+msgid "Start Date"
+msgstr "Begin datum"
+
+#. module: resource_management
+#: model:ir.model.fields,field_description:resource_management.field_task_schedule_date_end
+msgid "End Date"
+msgstr "Eind datum"
+
+#. module: resource_management
+#: model:ir.model.fields,field_description:resource_management.field_task_schedule_meeting_id
+msgid "Meeting"
+msgstr "Vergadering"
+
+#. module: project_native
+#: model:ir.model.fields,field_description:project_native.field_project_task_predecessor_ids
+#: model:ir.ui.view,arch_db:project_native.ganttaps_view_task_form2
+msgid "Predecessor"
+msgstr "Voorganger"
+
+#. module: resource_management
+#: model:ir.model.fields,field_description:resource_management.field_project_task_schedule_ids
+#: model:ir.ui.view,arch_db:resource_management.inherit_project_task_form
+msgid "Schedule"
+msgstr "planning"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.inherit_project_task_form
+msgid "Calendar Note"
+msgstr "Kalender Opmerking"
+
+#. module: resource_management
+#: model:ir.ui.menu,name:resource_management.menu_resource_availability
+msgid "Resource Availability"
+msgstr "Resource Beschikbaarheid"
+
+#. module: resource_management
+#: model:ir.ui.menu,name:resource_management.menu_summary
+msgid "Summary"
+msgstr "Overzicht"
+
+#. module: resource_management
+#: model:ir.model.fields,field_description:resource_management.field_resource_availability_resource_period
+msgid "Plan Period"
+msgstr "Plan Periode"
+
+#. module: resource_management
+#: selection:resource.availability,resource_period:0
+msgid "This Week"
+msgstr "Deze week"
+
+#. module: resource_management
+#: selection:resource.availability,resource_period:0
+msgid "Next Week"
+msgstr "Volgende week"
+
+#. module: resource_management
+#: selection:resource.availability,resource_period:0
+msgid "This Month"
+msgstr "Deze maand"
+
+#. module: resource_management
+#: selection:resource.availability,resource_period:0
+msgid "Next Month"
+msgstr "Volgende maand"
+
+#. module: resource_management
+#: selection:resource.availability,resource_period:0
+msgid "Custom"
+msgstr "Gewoonte"
+
+#. module: resource_management
+#: model:ir.model.fields,field_description:resource_management.field_resource_availability_date_from
+msgid "From"
+msgstr "Van"
+
+#. module: resource_management
+#: model:ir.model.fields,field_description:resource_management.field_resource_availability_date_to
+msgid "To"
+msgstr "Tot"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.summary_report_view
+msgid "Schedules"
+msgstr "Roosters"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.summary_report_view
+msgid "Tasks"
+msgstr "Taken"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.summary_report_view
+msgid "Leaves"
+msgstr "Bladeren"
+
+#. module: resource_management
+#: model:ir.model.fields,field_description:resource_management.field_resource_availability_date_from
+msgid "Time Period"
+msgstr "Tijd Periode"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.summary_report_view
+msgid "to"
+msgstr "tot"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.summary_report_view
+msgid "Summary"
+msgstr "Overzicht"
+
+#. module: resource_management
+#: model:ir.actions.act_window,name:resource_management.action_summary_report
+msgid "Summary Report"
+msgstr "Overzicht Rapport"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.resource_available_form_view
+msgid "Occupied"
+msgstr "Bezet"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.resource_available_form_view
+msgid "Free"
+msgstr "Gratis"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.resource_available_form_view
+msgid "Leave"
+msgstr "Het verlof"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.resource_available_form_view
+msgid "Available"
+msgstr "Beschikbaar"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.inherit_project_task_form
+msgid "Manage Resources"
+msgstr "Resources beheren"
+
+#. module: resource_management
+#: model:ir.model.fields,field_description:resource_management.field_resource_resource_employee_id
+msgid "Employee"
+msgstr "Werknemer"
+
+#. module: resource_management
+#: model:ir.model.fields,field_description:resource_management.field_resource_start_end_start_date
+msgid "Start Date"
+msgstr "Begin datum"
+
+#. module: resource_management
+#: model:ir.model.fields,field_description:resource_management.field_resource_start_end_end_date
+msgid "End Date"
+msgstr "Eind datum"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.resource_available_form_view
+msgid "Resource Availability"
+msgstr "Beschikbaarheid van bronnen"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.wizard_form_view
+msgid "Human"
+msgstr "Menselijk"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.wizard_form_view
+msgid "Material"
+msgstr "Materiaal"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.wizard_form_view
+msgid "Selected Resources"
+msgstr "Gekozen Resources"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.wizard_form_view
+msgid "Available Resources"
+msgstr "Beschikbaar Resources"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.wizard_form_view
+msgid "Partial Available Resources"
+msgstr "Gedeeltelijk Bseschikbaar Resources"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.wizard_form_view
+msgid "Not Available Resources"
+msgstr "Niet Beschikbaar Resources"
+
+#. module: resource_management
+#: model:ir.ui.menu,name:resource_management.res_schedule1
+msgid "Resource Schedule"
+msgstr "Resource Planning"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.view_task_kanban
+msgid "Edit Task"
+msgstr "Wijzig taak"
+
+#. module: resource_management
+#: model:ir.actions.act_window,name:resource_management.task_schedule_action1
+msgid "Schedule"
+msgstr "Planning"
+
+#. module: resource_management
+#: model:ir.actions.act_window,name:resource_management.action_resource_availability
+msgid "Resource Available"
+msgstr "Resource Beschikbaar"
+
+#. module: resource_management
+#: code:addons/resource_management/models/resource.py:942
+#, python-format
+msgid "Employee"
+msgstr "Werknemer"
+
+#. module: resource_management
+#: code:resource_management/models/resource.py:951
+#, python-format
+msgid "Morning"
+msgstr "Ochtend"
+
+#. module: resource_management
+#: code:resource_management/models/resource.py:951
+#, python-format
+msgid "Evening"
+msgstr "Avond"
+
+#. module: resource_management
+#: code:resource_management/models/resource.py:949
+#, python-format
+msgid "Monday"
+msgstr "Maandag"
+
+#. module: resource_management
+#: code:resource_management/models/resource.py:949
+#, python-format
+msgid "Tuesday"
+msgstr "Dinsdag"
+
+#. module: resource_management
+#: code:resource_management/models/resource.py:949
+#, python-format
+msgid "Wednesday"
+msgstr "Woensdag"
+
+#. module: resource_management
+#: code:resource_management/models/resource.py:949
+#, python-format
+msgid "Thursday"
+msgstr "Donderdag"
+
+#. module: resource_management
+#: code:resource_management/models/resource.py:949
+#, python-format
+msgid "Friday"
+msgstr "Vrijdag"
+
+#. module: resource_management
+#: code:resource_management/models/resource.py:949
+#, python-format
+msgid "Saturday"
+msgstr "Zaterdag"
+
+#. module: resource_management
+#: code:resource_management/models/resource.py:949
+#, python-format
+msgid "Sunday"
+msgstr "zondag"
+
+#. module: resource_management
+#: code:resource_management/models/resource.py:83
+#, python-format
+msgid "Select Employee"
+msgstr "Selecteer werknemer"
+
+#. module: project_native
+#: code:project_native/models/project_task.py:89
+#, python-format
+msgid "Manual"
+msgstr "Met de hand"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.wizard_form_view
+msgid "Save"
+msgstr "Opslaan"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.wizard_form_view
+msgid "Discard"
+msgstr "Aanmaken"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.inherit_project_task_form
+msgid "Calendar Note..."
+msgstr "Kalender notitie..."
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.task_schedule_search_view
+msgid "Future Schedules"
+msgstr "Toekomstige schema's"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.wizard_form_view
+msgid "Occupied"
+msgstr "Bezet"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.wizard_form_view
+msgid "Deselect"
+msgstr "Deselecteer"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.wizard_form_view
+msgid "Available"
+msgstr "Beschikbaar"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.wizard_form_view
+msgid "Partial Available"
+msgstr "Gedeeltelijk Beschikbaar"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.wizard_form_view
+msgid "Not Available"
+msgstr "Niet Beschikbaar"
+
+#. module: resource_management
+#: model:ir.ui.view,arch_db:resource_management.inherit_project_task_form
+msgid "Occupied"
+msgstr "Bezet"

@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_task_schedule,task.schedule,model_task_schedule,project.group_project_user,1,1,1,1
+access_task_schedule_on_partner,task.schedule on partners,model_task_schedule,base.group_user,1,0,0,0
+access_resource_availability1,resource.availability,model_resource_availability,project.group_project_user,1,1,1,1
+access_resource_availability2,resource.availability2,model_resource_availability,project.group_project_manager,1,1,1,1
+access_summary_report1,resource.access_summary_report1,model_summary_report,project.group_project_user,1,1,1,1
+access_summary_report2,resource.access_summary_report2,model_summary_report,project.group_project_manager,1,1,1,1
+access_project_quick_task_custom,access_project_quick_task_custom,model_project_quick_task,project.group_project_user,1,1,1,1
+access_task_overview_dashboard_custom,access_task_overview_dashboard_custom,model_task_overview_dashboard,project.group_project_user,1,1,1,1
+access_schedule_report_custom,access_schedule_report_custom,model_schedule_report,project.group_project_user,1,1,1,1
+access_resource_start_end_custom,access_resource_start_end_custom,model_resource_start_end,project.group_project_user,1,1,1,1

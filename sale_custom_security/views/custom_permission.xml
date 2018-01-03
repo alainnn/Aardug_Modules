@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!--  access rules for product template cost price-->
+        <record model="ir.ui.view" id="product_tree_view_hide_cost_own_documents">
+            <field name="name">product.template.cost.tree</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman') ])]"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='standard_price']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                 </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="product_form_view_hide_cost_own_documents">
+            <field name="name">product.template.cost.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman') ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='standard_price']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                 </xpath>
+                 <xpath expr="//div[@name='standard_price_uom']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                 </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="product_tree_view_hide_cost_all_documents">
+            <field name="name">product.template.cost.tree</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman_all_leads') ])]"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='standard_price']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                 </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="product_form_view_hide_cost_all_documents">
+            <field name="name">product.template.cost.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman_all_leads') ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='standard_price']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                 </xpath>
+                 <xpath expr="//div[@name='standard_price_uom']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                 </xpath>
+            </field>
+        </record>
+
+        <record id="view_template_property_form_inh" model="ir.ui.view">
+            <field name="name">product.template.stock.property.form.inherit2</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock_account.view_template_property_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman_all_leads') ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='standard_price']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                 </xpath>
+            </field>
+        </record>
+
+        <record id="view_template_property_form_inh" model="ir.ui.view">
+            <field name="name">product.template.stock.property.form.inherit2</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock_account.view_template_property_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_manager') ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='standard_price']" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                 </xpath>
+            </field>
+        </record>
+
+        <!--   access rules for list price in product template  -->
+        <record model="ir.ui.view"  id="product_form_readonly_SalesPrice">
+            <field name="name">product.template.salesprice</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman') ])]"/>
+            <field name="arch" type="xml">
+            <field name="list_price" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </field>
+        </field>
+    </record>
+    <record model="ir.ui.view"  id="product_form_SalesPrice_manager6">
+        <field name="name">product.template.salesprice_manager</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_manager') ])]"/>
+        <field name="arch" type="xml">
+            <field name="list_price" position="attributes">
+                <attribute name="readonly">0</attribute>
+            </field>
+        </field>
+    </record>
+
+    <!--  access rules for product_product view for cost price   -->
+        <record model="ir.ui.view"  id="product_product_form_SalesPrice">
+            <field name="name">product.product.salesprice_manager</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman') ])]"/>
+            <field name="arch" type="xml">
+                <field name="lst_price" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view"  id="product_product_form_SalesPrice_manager">
+            <field name="name">product.product.salesprice_manager</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_manager') ])]"/>
+            <field name="arch" type="xml">
+                <field name="lst_price" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </field>
+            </field>
+        </record>
+        <!--  access rules for qoutation creation line                                  -->
+        <record model="ir.ui.view"  id="sale_order_form_creation_product">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman') ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'no_create':True,'no_open':True}</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'no_create':True,'no_open':True}</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view"  id="sale_order_form_creation_product1">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_manager') ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'no_create':False,'no_open':False}</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'no_create':False,'no_open':False}</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view"  id="sale_order_form_in">
+            <field name="name">sale.order.line.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='price_unit']" position="after">
+                    <field name="price_unit_dummy" invisible="1"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='discount']" position="after">
+                    <field name="discount_dummy" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='price_unit']" position="after">
+                    <field name="price_unit_dummy" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='discount']" position="after">
+                    <field name="discount_dummy" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="color" invisible="1"/>
+                    <label for="color" attrs="{'invisible' : [('color', '!=', 'red')]}"/>
+                    <div attrs="{'invisible' : [('color', '!=', 'red')]}">
+                        <svg height="30" width="30" style="margin-top: -5px;margin-left: -10px;">
+                          <circle cx="15" cy="15" r="8" fill="red" />
+                        </svg>
+                    </div>
+                    <label for="color" attrs="{'invisible' : [('color', '!=', 'orange')]}"/>
+                    <div attrs="{'invisible' : [('color', '!=', 'orange')]}">
+                        <svg height="30" width="30" style="margin-top: -5px;margin-left: -10px;">
+                          <circle cx="15" cy="15" r="8" fill="orange" />
+                        </svg>
+                    </div>
+                    <label for="color" attrs="{'invisible' : [('color', '!=', 'green')]}"/>
+                    <div attrs="{'invisible' : [('color', '!=', 'green')]}" >
+                        <svg height="30" width="30" style="margin-top: -5px;margin-left: -10px;">
+                          <circle cx="15" cy="15" r="8" fill="green" />
+                        </svg>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view"  id="sale_order_form_inherit">
+            <field name="name">sale.order.line.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_custom_security.sale_order_form_in"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman') ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='discount']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='discount_dummy']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='tax_id']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='price_unit']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='price_unit_dummy']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='discount']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='discount_dummy']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='tax_id']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='price_unit']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='price_unit_dummy']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view"  id="sale_order_form_inherit1">
+            <field name="name">sale.order.line.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_custom_security.sale_order_form_in"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman_all_leads') ])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='discount']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='discount_dummy']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='tax_id']" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='price_unit']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='price_unit_dummy']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='discount']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='discount_dummy']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='tax_id']" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='price_unit']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='price_unit_dummy']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    <!--   access rule on margin and cost field in sale order -->
+        <record model="ir.ui.view"  id="sale_order_form_inherit2">
+            <field name="name">sale.order.line.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_margin.sale_margin_sale_order"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman')])]"/>
+            <field name="arch" type="xml">
+                <field name="margin" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view"  id="sale_order_form_inherit3">
+            <field name="name">sale.order.line.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_margin.sale_margin_sale_order"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman_all_leads')])]"/>
+            <field name="arch" type="xml">
+                <field name="margin" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view"  id="sale_order_form_inherit4">
+            <field name="name">sale.order.line.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_margin.sale_margin_sale_order_line"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman')])]"/>
+            <field name="arch" type="xml">
+                <field name="purchase_price" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view"  id="sale_order_form_inherit5">
+            <field name="name">sale.order.line.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_margin.sale_margin_sale_order_line"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman_all_leads')])]"/>
+            <field name="arch" type="xml">
+                <field name="purchase_price" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view"  id="sale_order_form_inherit6">
+            <field name="name">sale.order.line.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_margin.sale_margin_sale_order_line_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman')])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='purchase_price']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view"  id="sale_order_form_inherit7">
+            <field name="name">sale.order.line.tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_margin.sale_margin_sale_order_line_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman_all_leads')])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='purchase_price']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view"  id="sale_order_form_inherit7_manager">
+            <field name="name">sale.order.line.tree.manager</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_margin.sale_margin_sale_order_line_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_manager')])]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='purchase_price']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="readonly">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!--  put margin configuration field on sale.config.setting -->
+        <record id="view_sales_config" model="ir.ui.view">
+            <field name="name">sale settings</field>
+            <field name="model">sale.config.settings</field>
+            <field name="inherit_id" ref="sales_team.view_sale_config_settings"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='quotations_sales']" position="after">
+                    <h1><label string="Margin Configuration"/></h1>
+                    <div class="raw">
+                        <label string="Red" style="width: 10%;"/>UPTO
+                        <field name="red_margin_upto" style="width: 10%;"/>
+                    </div>
+                    <div class="raw">
+                        <label string="Orange" style="width: 10%;"/>
+                        <!-- <field name="orange_margin_to" style="width: 10%;"/> To -->
+                        <field name="orange_margin_from" style="width: 10%;"/>
+                    </div>
+                    <div class="raw">
+                        <label string="Green" style="width: 10%;"/>
+                        <field name="green_margin_from" style="width: 10%;"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
